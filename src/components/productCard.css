@@ -1,0 +1,11 @@
+.ProductCard{
+    width: 400px;
+    height: 500px;
+    border: 1px solid #ccc;
+}
+
+.ProductImage{
+    width: 200px;
+    height: 200px;
+    background-color: #f0f0f0;
+}
