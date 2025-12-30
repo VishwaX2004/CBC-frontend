@@ -7,18 +7,24 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import AdminPage from './Pages/AdminPage.jsx'
 import HomePage from './Pages/HomePage.jsx'
 import Test from './Pages/Test.jsx'
+import Loginpage from './Pages/Loginpage.jsx'
+import { Toaster } from 'react-hot-toast'
+
 
 function App() {
   return (
     <BrowserRouter>
 
       <div className="w-full h-[100vh]">
+        <Toaster position="top-right" />
 
         <Routes path="/">
 
           <Route path='/*' element={<HomePage/>}/>
 
           <Route path="/register/*" element={<h1>Register Page</h1>}/>
+
+          <Route path="/login/*" element={<Loginpage/>}/>
 
           <Route path="/admin/*" element={<AdminPage/>}/>
 
