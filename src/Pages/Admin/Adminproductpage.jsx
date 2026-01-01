@@ -2,10 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Adminproductpage() {
     const [products, setProducts] = useState([]);
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         axios
@@ -19,7 +21,7 @@ export default function Adminproductpage() {
         <div className="w-full min-h-screen bg-primary p-6 text-text">
 
             <Link to="/admin/add-product" className="fixed bottom-[50px] right-[50px] text-5xl text-accent hover:scale-110 transition">
-            <FiPlusCircle className="hover:text-accent "/>
+                <FiPlusCircle className="hover:text-accent " />
             </Link>
 
             <div className="overflow-x-auto rounded-xl shadow-md bg-white">
@@ -32,6 +34,7 @@ export default function Adminproductpage() {
                             <th className="p-4">Price</th>
                             <th className="p-4">Labelled Price</th>
                             <th className="p-4">Category</th>
+                            <th className="p-4">stock</th>
                             <th className="p-4">Actions</th>
                         </tr>
                     </thead>
@@ -57,6 +60,9 @@ export default function Adminproductpage() {
                                     ${item.labelledPrice}
                                 </td>
                                 <td className="p-4">{item.category}</td>
+                                <td className="p-4 text-gray-500 text-center">
+                                    {item.stock}
+                                </td>
 
                                 <td className="p-4">
                                     <div className="flex justify-center gap-5 text-lg">
@@ -67,6 +73,13 @@ export default function Adminproductpage() {
                                         <FaRegEdit
                                             className="cursor-pointer text-gray-500 hover:text-accent transition"
                                             title="Edit"
+                                            onClick={
+                                                () => {
+                                                    navigate("/admin/update-product", {
+                                                        state: item
+                                                    })
+                                                }
+                                            }
                                         />
                                     </div>
                                 </td>

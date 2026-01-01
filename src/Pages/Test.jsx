@@ -1,42 +1,30 @@
-import { use, useState } from "react";
+
+import { useState } from "react";
+import Mediaupload from "../Utils/mediaupload";
+
 
 export default function Test() {
+    const [file, setFile] = useState(null);
 
-    const [count,setcount]= useState(10)
+    async function uploadImage() {
+        const link = await Mediaupload(file);
+        console.log(link);
+    }
 
     return (
-        <div className="w-full h-full flex items-center justify-center text-white">
-
-            <div className="w-[500px] h-[500px] bg-red-700 flex items-center justify-center gap-10 rounded-lg">
-
-                <button onClick={
-
-                    () => {
-                        console.log("Increasing");
-                        setcount(count + 1)
-                        console.log(count);
-                    }
-
-                } className="w-[100px] bg-accent h-[40px] rounded-lg">
-
-                    +
-
-                </button>
-
-                <span className="text-accent text-5xl ">{count}</span>
-
-                <button  onClick={
-                    ()=>{
-                        console.log("Decreasing")
-                        setcount(count -1)
-                        console.log(count);
-                    }
-                    } className="w-[100px] bg-accent h-[40px] rounded-lg">
-
-                    -
-
-                </button>
-            </div>
+        <div className="w-full h-full flex items-center justify-center text-black">
+            <input
+                type="file"
+                onChange={(e) => {
+                    setFile(e.target.files[0]);
+                }}
+            />
+            <button
+                className="bg-blue-500 text-amber-50 p-2 rounded-2xl"
+                onClick={uploadImage}
+            >
+                Upload Image
+            </button>
         </div>
-    )
+    );
 }

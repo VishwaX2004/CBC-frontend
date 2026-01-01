@@ -5,6 +5,7 @@ import { BsBoxes } from "react-icons/bs";
 import { FiUsers } from "react-icons/fi";
 import Adminproductpage from "./Admin/Adminproductpage";
 import Adminaddnewproduct from "./Admin/Adminaddnewproduct";
+import UpdateProductPage from "./Admin/adminUpdateProduct";
 
 export default function AdminPage() {
   return (
@@ -69,6 +70,10 @@ export default function AdminPage() {
             />
 
             <Route path="/add-product" element={<Adminaddnewproduct />} />
+
+            <Route path="/update-product" element={<UpdateProductPage/>}>
+              Update Product
+            </Route>
           </Routes>
         </div>
       </main>

@@ -1,26 +1,27 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Mediaupload from "../../Utils/mediaupload";
 import toast from "react-hot-toast";
 import axios from "axios";
 
-export default function Adminaddnewproduct() {
-    const [productID, setProductID] = useState("");
-    const [name, setName] = useState("");
-    const [altNames, setAltNames] = useState("");
-    const [description, setDescription] = useState("");
+export default function UpdateProductPage() {
+    const location = useLocation()
+    const [productID, setProductID] = useState(location.state.productID);
+    const [name, setName] = useState(location.state.name);
+    const [altNames, setAltNames] = useState(location.state.altNames.join(","));
+    const [description, setDescription] = useState(location.state.description);
     const [images, setImages] = useState([]);
-    const [price, setPrice] = useState("");
-    const [labelledPrice, setLabelledPrice] = useState("");
-    const [category, setCategory] = useState("");
-    const [stock, setStock] = useState("");
+    const [price, setPrice] = useState(location.state.price);
+    const [labelledPrice, setLabelledPrice] = useState(location.state.labelledPrice);
+    const [category, setCategory] = useState(location.state.category);
+    const [stock, setStock] = useState(location.state.stock);
     
     // 1. Add loading state to handle upload time
     const [isLoading, setIsLoading] = useState(false);
     
     const navigate = useNavigate();
 
-    async function addprodduct() {
+    async function updateprodduct() {
         const token = localStorage.getItem("token");
         if (!token) {
             navigate("/login");
@@ -43,7 +44,11 @@ export default function Adminaddnewproduct() {
             }
             
             // Wait for all images to upload
-            const urls = await Promise.all(promises);
+            let urls = await Promise.all(promises);
+
+            if(urls.length == 0){
+                urls = location.state.image
+            }
 
             // Handle Alternative Names (prevent empty string in array)
             const AlternativeNames = altNames ? altNames.split(",") : [];
@@ -61,8 +66,8 @@ export default function Adminaddnewproduct() {
                 stock: parseInt(stock),           // Fix: Convert to Integer
             };
 
-            await axios.post(
-                import.meta.env.VITE_API_URL + "/api/products",
+            await axios.put(
+                import.meta.env.VITE_API_URL + "/api/products/"+productID,
                 product,
                 {
                     headers: {
@@ -71,7 +76,7 @@ export default function Adminaddnewproduct() {
                 }
             );
 
-            toast.success("Product Add Successful");
+            toast.success("Product Updated Successful");
             navigate("/admin/products");
 
         } catch (error) {
@@ -95,7 +100,7 @@ export default function Adminaddnewproduct() {
             <div className="w-full max-w-3xl bg-white rounded-2xl shadow-2xl p-8 space-y-4">
 
                 <h2 className="text-2xl font-bold text-gray-900 text-center mb-6 tracking-tight">
-                    Add New Product
+                    Update Product
                 </h2>
 
                 <div className="space-y-4">
@@ -105,6 +110,7 @@ export default function Adminaddnewproduct() {
                             Product ID
                         </label>
                         <input
+                            disabled
                             value={productID}
                             onChange={(e) => setProductID(e.target.value)}
                             placeholder="Enter Product ID"
@@ -199,11 +205,11 @@ export default function Adminaddnewproduct() {
 
                     <div className="flex justify-end gap-4 pt-4">
                         <button
-                            onClick={addprodduct}
+                            onClick={updateprodduct}
                             disabled={isLoading} // Disable button while loading
                             className={`px-8 py-3 transition text-white rounded-xl font-medium ${isLoading ? 'bg-amber-300 cursor-not-allowed' : 'bg-amber-500 hover:bg-amber-600'}`}
                         >
-                            {isLoading ? "Uploading..." : "Submit"}
+                            {isLoading ? "Updating..." : "Update"}
                         </button>
                         <button
                             onClick={() => navigate("/admin/products")}
