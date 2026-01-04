@@ -14,10 +14,8 @@ export default function Adminaddnewproduct() {
     const [labelledPrice, setLabelledPrice] = useState("");
     const [category, setCategory] = useState("");
     const [stock, setStock] = useState("");
-    
-    // 1. Add loading state to handle upload time
     const [isLoading, setIsLoading] = useState(false);
-    
+
     const navigate = useNavigate();
 
     async function addprodduct() {
@@ -27,38 +25,32 @@ export default function Adminaddnewproduct() {
             return;
         }
 
-        // 2. Basic Validation: prevent submitting empty required fields
-        if(!name || !price || !category || !stock) {
+        if (!name || !price || !category || !stock) {
             toast.error("Please fill in all required fields");
             return;
         }
 
-        setIsLoading(true); // Disable button
+        setIsLoading(true);
 
         try {
-            // Upload images first
             const promises = [];
             for (let i = 0; i < images.length; i++) {
                 promises[i] = Mediaupload(images[i]);
             }
-            
-            // Wait for all images to upload
-            const urls = await Promise.all(promises);
 
-            // Handle Alternative Names (prevent empty string in array)
+            const urls = await Promise.all(promises);
             const AlternativeNames = altNames ? altNames.split(",") : [];
 
-            // 3. CONVERT STRINGS TO NUMBERS
             const product = {
                 productID: productID,
                 name: name,
                 altNames: AlternativeNames,
                 description: description,
                 images: urls,
-                price: parseFloat(price),         // Fix: Convert to Float
-                labelledPrice: parseFloat(labelledPrice), // Fix: Convert to Float
+                price: parseFloat(price),
+                labelledPrice: parseFloat(labelledPrice),
                 category: category,
-                stock: parseInt(stock),           // Fix: Convert to Integer
+                stock: parseInt(stock),
             };
 
             await axios.post(
@@ -66,148 +58,160 @@ export default function Adminaddnewproduct() {
                 product,
                 {
                     headers: {
-                        Authorization: "Bearer " + token
-                    }
+                        Authorization: "Bearer " + token,
+                    },
                 }
             );
 
             toast.success("Product Add Successful");
             navigate("/admin/products");
-
         } catch (error) {
-            // 4. Detailed Error Logging
             console.error("Full Error Object:", error);
-            
-            // Check if it's a backend validation error
             if (error.response && error.response.data) {
-                console.log("Server Error Response:", error.response.data);
                 toast.error(error.response.data.message || "Server Rejected Request");
             } else {
                 toast.error("An Error Occurred. Check Console.");
             }
         } finally {
-            setIsLoading(false); // Re-enable button
+            setIsLoading(false);
         }
     }
 
     return (
-        <div className="w-full min-h-screen bg-gradient-to-br from-amber-500 via-amber-400 to-orange-400 flex justify-center items-start py-10 px-4">
-            <div className="w-full max-w-3xl bg-white rounded-2xl shadow-2xl p-8 space-y-4">
+        <div className="w-full min-h-screen bg-gradient-to-br from-amber-500 via-amber-400 to-orange-400 flex justify-center items-start py-10 px-4 rounded-3xl">
+            <div className="w-full max-w-3xl bg-white rounded-3xl shadow-xl p-10">
 
-                <h2 className="text-2xl font-bold text-gray-900 text-center mb-6 tracking-tight">
+                <h2 className="text-3xl font-bold text-text text-center mb-8">
                     Add New Product
                 </h2>
 
-                <div className="space-y-4">
+                <div className="space-y-5">
 
+                    {/* Product ID */}
                     <div>
-                        <label className="block mb-1 text-gray-700 font-medium text-sm">
+                        <label className="block text-sm font-medium text-text mb-1">
                             Product ID
                         </label>
                         <input
                             value={productID}
                             onChange={(e) => setProductID(e.target.value)}
-                            placeholder="Enter Product ID"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-xl bg-gray-50 text-sm"
+                            placeholder="PRD-001"
+                            className="w-full px-4 py-2.5 rounded-xl border bg-white text-sm focus:ring-2 focus:ring-accent outline-none"
                         />
                     </div>
 
+                    {/* Product Name */}
                     <div>
-                        <label className="block mb-1 text-gray-700 font-medium text-sm">
+                        <label className="block text-sm font-medium text-text mb-1">
                             Product Name
                         </label>
                         <input
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            placeholder="Enter Product Name"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-xl bg-gray-50 text-sm"
+                            placeholder="Crystal Glow Cream"
+                            className="w-full px-4 py-2.5 rounded-xl border bg-white text-sm focus:ring-2 focus:ring-accent outline-none"
                         />
                     </div>
 
+                    {/* Alternative Names */}
                     <div>
-                        <label className="block mb-1 text-gray-700 font-medium text-sm">
+                        <label className="block text-sm font-medium text-text mb-1">
                             Alternative Names
                         </label>
                         <input
                             value={altNames}
                             onChange={(e) => setAltNames(e.target.value)}
-                            placeholder="Comma separated names"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-xl bg-gray-50 text-sm"
+                            placeholder="Glow Cream, Beauty Cream"
+                            className="w-full px-4 py-2.5 rounded-xl border bg-white text-sm focus:ring-2 focus:ring-accent outline-none"
                         />
                     </div>
 
+                    {/* Description */}
                     <div>
-                        <label className="block mb-1 text-gray-700 font-medium text-sm">
-                            Product Description
+                        <label className="block text-sm font-medium text-text mb-1">
+                            Description
                         </label>
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
-                            rows="3"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-xl bg-gray-50 resize-none text-sm"
+                            rows="4"
+                            className="w-full px-4 py-2.5 rounded-xl border bg-white resize-none text-sm focus:ring-2 focus:ring-accent outline-none"
                         />
                     </div>
 
+                    {/* Images */}
                     <div>
-                        <label className="block mb-1 text-gray-700 font-medium text-sm">
+                        <label className="block text-sm font-medium text-text mb-1">
                             Product Images
                         </label>
                         <input
                             type="file"
                             multiple
                             onChange={(e) => setImages(Array.from(e.target.files))}
-                            className="w-full text-sm"
+                            className="w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-secondary file:text-text hover:file:bg-accent hover:file:text-white transition"
                         />
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {/* Pricing */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <input
                             type="number"
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
                             placeholder="Price"
-                            className="px-4 py-2 border rounded-xl text-sm"
+                            className="px-4 py-2.5 rounded-xl border text-sm focus:ring-2 focus:ring-accent outline-none"
                         />
                         <input
                             type="number"
                             value={labelledPrice}
                             onChange={(e) => setLabelledPrice(e.target.value)}
                             placeholder="Labelled Price"
-                            className="px-4 py-2 border rounded-xl text-sm"
+                            className="px-4 py-2.5 rounded-xl border text-sm focus:ring-2 focus:ring-accent outline-none"
                         />
                     </div>
 
+                    {/* Category */}
                     <select
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
-                        className="w-full px-4 py-2 border rounded-xl text-sm"
+                        className="w-full px-4 py-2.5 rounded-xl border bg-white text-sm focus:ring-2 focus:ring-accent outline-none"
                     >
                         <option value="">Select Category</option>
                         <option value="Cream">Cream</option>
                         <option value="Lotion">Lotion</option>
                         <option value="Soap">Soap</option>
                         <option value="Oil">Oil</option>
+                        <option value="Skin-Care">Skin Care</option>
+                        <option value="Hair-care">Hair Care</option>
+                        <option value="Makeup">Makeup</option>
                     </select>
 
+                    {/* Stock */}
                     <input
                         type="number"
                         value={stock}
                         onChange={(e) => setStock(e.target.value)}
                         placeholder="Stock Quantity"
-                        className="w-full px-4 py-2 border rounded-xl text-sm"
+                        className="w-full px-4 py-2.5 rounded-xl border text-sm focus:ring-2 focus:ring-accent outline-none"
                     />
 
-                    <div className="flex justify-end gap-4 pt-4">
+                    {/* Actions */}
+                    <div className="flex justify-end gap-4 pt-6">
                         <button
                             onClick={addprodduct}
-                            disabled={isLoading} // Disable button while loading
-                            className={`px-8 py-3 transition text-white rounded-xl font-medium ${isLoading ? 'bg-amber-300 cursor-not-allowed' : 'bg-amber-500 hover:bg-amber-600'}`}
+                            disabled={isLoading}
+                            className={`px-10 py-3 rounded-xl font-semibold transition ${
+                                isLoading
+                                    ? "bg-secondary text-text cursor-not-allowed"
+                                    : "bg-accent text-white hover:opacity-90"
+                            }`}
                         >
                             {isLoading ? "Uploading..." : "Submit"}
                         </button>
+
                         <button
                             onClick={() => navigate("/admin/products")}
-                            className="px-8 py-3 bg-red-500 hover:bg-red-600 transition text-white rounded-xl font-medium"
+                            className="px-10 py-3 rounded-xl font-semibold border border-text text-text hover:bg-text hover:text-white transition"
                         >
                             Cancel
                         </button>

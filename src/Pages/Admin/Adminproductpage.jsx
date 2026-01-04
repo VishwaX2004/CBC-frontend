@@ -127,9 +127,10 @@ export default function Adminproductpage() {
 
                                 <td className="p-4 text-sm">{item.productID}</td>
                                 <td className="p-4 font-medium">{item.name}</td>
-                                <td className="p-4 font-semibold">${item.price}</td>
+                                <td className="p-4 font-semibold">LKR {item.price}</td>
+
                                 <td className="p-4 text-gray-500 text-center">
-                                    ${item.labelledPrice}
+                                    LKR {item.labelledPrice}
                                 </td>
                                 <td className="p-4">{item.category}</td>
                                 <td className="p-4 text-gray-500 text-center">

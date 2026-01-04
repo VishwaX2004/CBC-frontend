@@ -96,8 +96,8 @@ export default function UpdateProductPage() {
     }
 
     return (
-        <div className="w-full min-h-screen bg-gradient-to-br from-amber-500 via-amber-400 to-orange-400 flex justify-center items-start py-10 px-4">
-            <div className="w-full max-w-3xl bg-white rounded-2xl shadow-2xl p-8 space-y-4">
+        <div className="w-full min-h-screen bg-gradient-to-br from-amber-500 via-amber-400 to-orange-400 flex justify-center items-start py-10 px-4 rounded-3xl">
+            <div className="w-full max-w-3xl bg-white rounded-3xl shadow-2xl p-8 space-y-4">
 
                 <h2 className="text-2xl font-bold text-gray-900 text-center mb-6 tracking-tight">
                     Update Product
@@ -155,14 +155,14 @@ export default function UpdateProductPage() {
                     </div>
 
                     <div>
-                        <label className="block mb-1 text-gray-700 font-medium text-sm">
+                        <label className="block mb-1 text-gray-700 font-medium text-sm mb-3">
                             Product Images
                         </label>
                         <input
                             type="file"
                             multiple
                             onChange={(e) => setImages(Array.from(e.target.files))}
-                            className="w-full text-sm"
+                            className="w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-secondary file:text-text hover:file:bg-accent hover:file:text-white transition"
                         />
                     </div>
 

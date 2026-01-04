@@ -23,7 +23,7 @@ export function ProductPage() {
     }, [isLoading]);
 
     return (
-        <div className="w-full min-h-[calc(100vh-70px)] bg-primary">
+        <div className="w-full min-h-[calc(100vh-100px)] bg-primary">
             {isLoading ? (
                 <Loader />
             ) : (
