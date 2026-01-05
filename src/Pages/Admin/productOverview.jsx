@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { Loader } from "../../components/loader";
 import ImageSlider from "../../components/imageSlider";
+import { AddtoCart, LoadCart } from "../../Utils/cart";
 
 export default function ProductOverView() {
     const params = useParams();
@@ -92,10 +93,15 @@ export default function ProductOverView() {
 
                         {/* Action Buttons */}
                         <div className="w-full flex gap-3 mt-3">
-                            <button className="flex-1 h-[46px] rounded-2xl bg-accent text-white font-semibold tracking-wide shadow-md hover:shadow-lg hover:scale-[1.02] transition-all">
+                            <button onClick={() => {
+                                AddtoCart(product, 1)
+                                toast.success("Added to Cart Successfully")
+                            }} className="flex-1 h-[46px] rounded-2xl bg-accent text-white font-semibold tracking-wide shadow-md hover:shadow-lg hover:scale-[1.02] transition-all">
                                 Add to Cart
                             </button>
-                            <button className="flex-1 h-[46px] rounded-2xl border-2 border-accent text-accent font-semibold tracking-wide hover:bg-accent hover:text-white hover:scale-[1.02] transition-all">
+                            <button onClick={()=>{
+                                console.log(LoadCart())
+                            }} className="flex-1 h-[46px] rounded-2xl border-2 border-accent text-accent font-semibold tracking-wide hover:bg-accent hover:text-white hover:scale-[1.02] transition-all">
                                 Buy Now
                             </button>
                         </div>
