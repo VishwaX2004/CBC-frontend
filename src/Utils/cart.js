@@ -31,9 +31,11 @@ export function AddtoCart(product, quantity) {
             productID: product.productID,
             name: product.name,
             price: product.price,
-            laballedPrice: product.laballedPrice,
+            labelledPrice: product.labelledPrice,
             quantity: quantity,
-            image: product.images[0],
+            image: product.images ? product.images[0] : product.image
+            ,
+
         };
 
         cart.push(cartItem);
@@ -64,15 +66,15 @@ export function AddtoCart(product, quantity) {
 }
 
 
-export function GetTotal(){
+export function GetTotal() {
 
-    const cart = LoadCart()
+    let cart = LoadCart()
 
     let total = 0
 
     cart.forEach(
-        (itme)=>{
-            total += itme.price * itme.quantity
+        (item) => {
+            total += item.price * item.quantity
         }
     )
 

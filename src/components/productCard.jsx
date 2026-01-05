@@ -4,7 +4,7 @@ export default function ProductCard(props) {
     const product = props.product;
 
     return (
-        <div className="w-[300px] h-[450px] bg-white rounded-2xl shadow-lg hover:shadow-xl transition overflow-hidden m-3 flex flex-col mt-4">
+        <div className="w-[300px] h-[500px] bg-white rounded-2xl shadow-lg hover:shadow-xl transition overflow-hidden m-3 flex flex-col mt-4">
 
             {/* Image */}
             <div className="w-full h-[250px] overflow-hidden object-cover">

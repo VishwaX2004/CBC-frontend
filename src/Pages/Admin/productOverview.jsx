@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Loader } from "../../components/loader";
 import ImageSlider from "../../components/imageSlider";
-import { AddtoCart, LoadCart } from "../../Utils/cart";
+import { AddtoCart } from "../../Utils/cart";
 
 export default function ProductOverView() {
     const params = useParams();
@@ -33,8 +33,8 @@ export default function ProductOverView() {
                 <div className="max-w-[1200px] mx-auto bg-white rounded-3xl shadow-xl p-6 md:p-10 flex flex-col lg:flex-row gap-10 overflow-hidden">
 
                     {/* Image Section */}
-                    <div className="lg:w-1/2 w-full flex justify-center items-start overflow-hidden items-center object-cover">
-                        <div className="w-full max-w-[500px] rounded-2xl overflow-hidden shadow-lg items-center justify-center flex">
+                    <div className="lg:w-1/2 w-full flex justify-center overflow-hidden">
+                        <div className="w-full max-w-[500px] rounded-2xl overflow-hidden shadow-lg flex justify-center">
                             <ImageSlider images={product.images} />
                         </div>
                     </div>
@@ -62,7 +62,7 @@ export default function ProductOverView() {
 
                         {/* Category */}
                         <div>
-                            <span className="inline-block px-5 py-1 text-s tracking-wide rounded-full bg-secondary text-text font-bold">
+                            <span className="inline-block px-5 py-1 text-sm tracking-wide rounded-full bg-secondary text-text font-bold">
                                 {product.category}
                             </span>
                         </div>
@@ -75,7 +75,7 @@ export default function ProductOverView() {
                         {/* Price */}
                         {product.labelledPrice > product.price ? (
                             <div className="flex items-center gap-4 mt-1 flex-wrap">
-                                <p className="text-m text-accent line-through font-medium">
+                                <p className="text-sm text-accent line-through font-medium">
                                     LKR {product.labelledPrice.toFixed(2)}
                                 </p>
                                 <p className="text-2xl text-text font-extrabold">
@@ -93,17 +93,32 @@ export default function ProductOverView() {
 
                         {/* Action Buttons */}
                         <div className="w-full flex gap-3 mt-3">
-                            <button onClick={() => {
-                                AddtoCart(product, 1)
-                                toast.success("Added to Cart Successfully")
-                            }} className="flex-1 h-[46px] rounded-2xl bg-accent text-white font-semibold tracking-wide shadow-md hover:shadow-lg hover:scale-[1.02] transition-all">
+                            <button
+                                onClick={() => {
+                                    AddtoCart(product, 1);
+                                    toast.success("Added to Cart Successfully");
+                                }}
+                                className="flex-1 h-[46px] rounded-2xl bg-accent text-white font-semibold tracking-wide shadow-md hover:shadow-lg hover:scale-[1.02] transition-all"
+                            >
                                 Add to Cart
                             </button>
-                            <button onClick={()=>{
-                                console.log(LoadCart())
-                            }} className="flex-1 h-[46px] rounded-2xl border-2 border-accent text-accent font-semibold tracking-wide hover:bg-accent hover:text-white hover:scale-[1.02] transition-all">
+
+                            <Link
+                                to="/checkout"
+                                state={[
+                                    {
+                                        image: product.images[0],
+                                        productID: product.productID,
+                                        name: product.name,
+                                        price: product.price,
+                                        labelledPrice: product.labelledPrice,
+                                        quantity : 1
+                                    }
+                                ]}
+                                className="flex-1 h-[46px] rounded-2xl border-2 border-accent text-accent font-semibold tracking-wide hover:bg-accent hover:text-white hover:scale-[1.02] transition-all flex items-center justify-center"
+                            >
                                 Buy Now
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

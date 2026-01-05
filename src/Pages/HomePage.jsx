@@ -4,6 +4,7 @@ import AdminPage from "./AdminPage";
 import { ProductPage } from "./ProductPage";
 import ProductOverView from "./Admin/productOverview";
 import CartPage from "./cart";
+import CheckoutPage from "./checkout";
 
 export default function HomePage() {
 
@@ -21,6 +22,7 @@ export default function HomePage() {
                 <Route path="/*" element={<h1 className="text-text">Page Not Found</h1>} />
                 <Route path="/overview/:id" element={<ProductOverView/>}/>
                 <Route path="/cart" element={<CartPage/>}/>
+                <Route path="/checkout" element={<CheckoutPage/>}/>
 
             </Routes>
 

@@ -1,11 +1,27 @@
-import { FaRegCircleUp } from "react-icons/fa6";
-import { AddtoCart, GetTotal, LoadCart } from "../Utils/cart";
-import { FaRegTrashAlt } from "react-icons/fa";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { Link, useLocation } from "react-router-dom";
+import { FaRegCircleUp } from "react-icons/fa6";
 
-export default function CartPage() {
-    const [cart, setCart] = useState(LoadCart());
+export default function CheckoutPage() {
+
+    const location = useLocation();
+    const [cart, setCart] = useState(location.state);
+
+    function GetTotal() {
+
+        let total = 0
+
+        cart.forEach(
+            (item) => {
+                total += item.price * item.quantity
+            }
+        )
+
+        return total
+    }
+
+
 
     return (
         <div className="w-full min-h-[calc(100vh-100px)] bg-primary flex justify-center py-10 px-4">
@@ -24,8 +40,7 @@ export default function CartPage() {
                             <button
                                 className="absolute top-5 right-5 text-red-500 rounded-full p-2 hover:bg-red-500 hover:text-white transition"
                                 onClick={() => {
-                                    AddtoCart(item, -item.quantity);
-                                    setCart(LoadCart());
+
                                 }}
                             >
                                 <FaRegTrashAlt className="text-2xl" />
@@ -53,8 +68,11 @@ export default function CartPage() {
                                 <FaRegCircleUp
                                     className="text-4xl cursor-pointer hover:text-accent transition"
                                     onClick={() => {
-                                        AddtoCart(item, 1);
-                                        setCart(LoadCart());
+                                        const newcart = [...cart]
+
+                                        newcart[index].quantity += 1
+
+                                        setCart(newcart)
                                     }}
                                 />
                                 <span className="text-xl font-bold text-text">
@@ -63,23 +81,29 @@ export default function CartPage() {
                                 <FaRegCircleUp
                                     className="rotate-180 text-4xl cursor-pointer hover:text-accent transition"
                                     onClick={() => {
-                                        AddtoCart(item, -1);
-                                        setCart(LoadCart());
+                                        const newcart = [...cart]
+
+                                        if(newcart[index].quantity>1){
+                                            newcart[index].quantity -= 1
+                                        }
+
+                                        setCart(newcart)
                                     }}
                                 />
                             </div>
 
                             {/* Price */}
                             <div className="w-[200px] h-full flex flex-col justify-center items-end pr-6 pt-[20px]">
-                                {item.labelledPrice > item.price &&
+                                {item.labelledPrice > item.price && (
                                     <span className="text-lg text-text line-through font-medium">
                                         LKR {item.labelledPrice.toFixed(2)}
                                     </span>
-                                }
+                                )}
                                 <span className="text-2xl font-bold text-accent">
                                     LKR {item.price.toFixed(2)}
                                 </span>
                             </div>
+
                         </div>
                     );
                 })}
@@ -95,10 +119,10 @@ export default function CartPage() {
                     </span>
 
                     <Link
-                        to="/checkout" state={cart}
+                        to="/checkout"
                         className="px-10 py-4 rounded-xl bg-accent text-white text-lg font-semibold tracking-wide hover:opacity-90 hover:scale-[1.03] transition"
                     >
-                        Proceed to Checkout
+                        Order Now
                     </Link>
                 </div>
 
