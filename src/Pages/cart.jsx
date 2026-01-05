@@ -3,6 +3,7 @@ import { AddtoCart, GetTotal, LoadCart } from "../Utils/cart";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function CartPage() {
     const [cart, setCart] = useState(LoadCart());
@@ -26,7 +27,9 @@ export default function CartPage() {
                                 onClick={() => {
                                     AddtoCart(item, -item.quantity);
                                     setCart(LoadCart());
+                                    toast.success("Item removed from cart");
                                 }}
+
                             >
                                 <FaRegTrashAlt className="text-2xl" />
                             </button>
