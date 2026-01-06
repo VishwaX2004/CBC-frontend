@@ -23,6 +23,7 @@ export default function HomePage() {
                 <Route path="/overview/:id" element={<ProductOverView/>}/>
                 <Route path="/cart" element={<CartPage/>}/>
                 <Route path="/checkout" element={<CheckoutPage/>}/>
+                
 
             </Routes>
 

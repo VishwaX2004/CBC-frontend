@@ -92,6 +92,15 @@ export default function Adminproductpage() {
                 isDeteleConfirmVisibale && <ProductDeleteConfirm refresh={()=>{setLoading(true)}} productID={producToDelete} close ={()=>{setIsDeleteConfirmvisibale(false)}}  />
             }
 
+            
+                <div className="flex items-center gap-4 border-b border-secondary/10 px-6 py-4 ">
+
+                <h1 className="text-lg flex left-1 font-semibold text-text">Products</h1>
+
+                <span className="flex right-0 rounded-full bg-accent/10 px-3 py-1 text-xs font-medium text-accent">{products.length} Products</span>
+                </div>
+
+
             <Link to="/admin/add-product" className="fixed bottom-[50px] right-[50px] text-5xl text-accent hover:scale-110 transition">
                 <FiPlusCircle className="hover:text-accent " />
             </Link>

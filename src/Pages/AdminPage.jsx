@@ -6,6 +6,7 @@ import { FiUsers } from "react-icons/fi";
 import Adminproductpage from "./Admin/Adminproductpage";
 import Adminaddnewproduct from "./Admin/Adminaddnewproduct";
 import UpdateProductPage from "./Admin/adminUpdateProduct";
+import AdminOrdersPage from "./Admin/AdminOrders";
 
 export default function AdminPage() {
   return (
@@ -65,7 +66,7 @@ export default function AdminPage() {
             <Route
               path="/oders"
               element={
-                <h1 className="text-2xl font-semibold">Manage Orders</h1>
+                <AdminOrdersPage/>
               }
             />
 
