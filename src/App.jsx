@@ -1,19 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 import './App.css'
-import ProductCard from './components/productCard.jsx'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import AdminPage from './Pages/AdminPage.jsx'
 import HomePage from './Pages/HomePage.jsx'
 import Test from './Pages/Test.jsx'
 import Loginpage from './Pages/Loginpage.jsx'
 import { Toaster } from 'react-hot-toast'
+import RegisterPage from './Pages/register.jsx'
 
 
 function App() {
   return (
     <BrowserRouter>
+
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
 
       <div className="w-full h-[100vh]">
         <Toaster position="top-right" />
@@ -22,7 +22,7 @@ function App() {
 
           <Route path='/*' element={<HomePage/>}/>
 
-          <Route path="/register/*" element={<h1>Register Page</h1>}/>
+          <Route path="/register/*" element={<RegisterPage/>}/>
 
           <Route path="/login/*" element={<Loginpage/>}/>
 
@@ -33,6 +33,8 @@ function App() {
         </Routes>
 
       </div>
+
+      </GoogleOAuthProvider>
 
     </BrowserRouter>
   )
