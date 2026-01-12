@@ -25,22 +25,22 @@ export default function ProductOverView() {
     }, []);
 
     return (
-        <div className="w-full min-h-[calc(100vh-100px)] bg-primary text-text px-4 md:px-10 py-8 overflow-hidden">
+        <div className="w-full min-h-[calc(100vh-100px)] bg-primary text-text px-3 sm:px-5 md:px-10 py-6 sm:py-8">
 
             {status === "Loading" && <Loader />}
 
             {status === "success" && (
-                <div className="max-w-[1200px] mx-auto bg-white rounded-3xl shadow-xl p-6 md:p-10 flex flex-col lg:flex-row gap-10 overflow-hidden">
+                <div className="max-w-[1300px] mx-auto bg-white rounded-3xl shadow-xl p-4 sm:p-6 md:p-10 flex flex-col lg:flex-row gap-8 lg:gap-12">
 
                     {/* Image Section */}
-                    <div className="lg:w-1/2 w-full flex justify-center overflow-hidden">
-                        <div className="w-full max-w-[500px] rounded-2xl overflow-hidden shadow-lg flex justify-center">
+                    <div className="lg:w-1/2 w-full flex justify-center">
+                        <div className="w-full max-w-[440px] sm:max-w-[480px] lg:max-w-[520px] rounded-2xl overflow-hidden shadow-lg">
                             <ImageSlider images={product.images} />
                         </div>
                     </div>
 
                     {/* Content Section */}
-                    <div className="lg:w-1/2 w-full flex flex-col gap-5 overflow-hidden">
+                    <div className="lg:w-1/2 w-full flex flex-col gap-5">
 
                         {/* Product ID */}
                         <span className="text-xs uppercase tracking-widest text-gray-400 font-semibold">
@@ -48,12 +48,12 @@ export default function ProductOverView() {
                         </span>
 
                         {/* Product Name */}
-                        <h1 className="text-2xl md:text-3xl font-bold leading-tight text-text break-words">
+                        <h1 className="text-2xl sm:text-2xl md:text-3xl font-bold leading-tight break-words">
                             {product.name}
                             {product.altNames.map((name, index) => (
                                 <span
                                     key={index}
-                                    className="block text-base font-normal text-gray-500 mt-1"
+                                    className="block text-base sm:text-base font-normal text-gray-500 mt-1"
                                 >
                                     {name}
                                 </span>
@@ -62,13 +62,13 @@ export default function ProductOverView() {
 
                         {/* Category */}
                         <div>
-                            <span className="inline-block px-5 py-1 text-sm tracking-wide rounded-full bg-secondary text-text font-bold">
+                            <span className="inline-block px-5 py-1.5 text-sm rounded-full bg-secondary text-text font-bold">
                                 {product.category}
                             </span>
                         </div>
 
                         {/* Description */}
-                        <p className="text-sm leading-relaxed text-gray-600 text-justify break-words">
+                        <p className="text-sm sm:text-sm leading-relaxed text-gray-600 text-justify break-words">
                             {product.description}
                         </p>
 
@@ -78,27 +78,28 @@ export default function ProductOverView() {
                                 <p className="text-sm text-accent line-through font-medium">
                                     LKR {product.labelledPrice.toFixed(2)}
                                 </p>
-                                <p className="text-2xl text-text font-extrabold">
+                                <p className="text-2xl sm:text-2xl font-extrabold">
                                     LKR {product.price.toFixed(2)}
                                 </p>
                             </div>
                         ) : (
-                            <p className="text-2xl text-accent font-extrabold mt-1">
+                            <p className="text-2xl sm:text-2xl text-accent font-extrabold mt-1">
                                 LKR {product.price.toFixed(2)}
                             </p>
                         )}
 
                         {/* Divider */}
-                        <div className="w-full h-px bg-gray-200 my-2"></div>
+                        <div className="w-full h-px bg-gray-200 my-3"></div>
 
                         {/* Action Buttons */}
-                        <div className="w-full flex gap-3 mt-3">
+                        <div className="w-full flex flex-col sm:flex-row gap-4 mt-4">
+
                             <button
                                 onClick={() => {
                                     AddtoCart(product, 1);
                                     toast.success("Added to Cart Successfully");
                                 }}
-                                className="flex-1 h-[46px] rounded-2xl bg-accent text-white font-semibold tracking-wide shadow-md hover:shadow-lg hover:scale-[1.02] transition-all"
+                                className="flex-1 h-[52px] sm:h-[46px] rounded-2xl bg-accent text-white text-base sm:text-base font-semibold tracking-wide shadow-md hover:shadow-lg hover:scale-[1.02] transition-all"
                             >
                                 Add to Cart
                             </button>
@@ -112,13 +113,14 @@ export default function ProductOverView() {
                                         name: product.name,
                                         price: product.price,
                                         labelledPrice: product.labelledPrice,
-                                        quantity : 1
+                                        quantity: 1
                                     }
                                 ]}
-                                className="flex-1 h-[46px] rounded-2xl border-2 border-accent text-accent font-semibold tracking-wide hover:bg-accent hover:text-white hover:scale-[1.02] transition-all flex items-center justify-center"
+                                className="flex-1 h-[52px] sm:h-[46px] rounded-2xl border-2 border-accent text-accent text-base sm:text-base font-semibold tracking-wide hover:bg-accent hover:text-white hover:scale-[1.02] transition-all flex items-center justify-center"
                             >
                                 Buy Now
                             </Link>
+
                         </div>
                     </div>
                 </div>
