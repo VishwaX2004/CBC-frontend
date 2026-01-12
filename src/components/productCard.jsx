@@ -7,7 +7,7 @@ export default function ProductCard(props) {
         <div
             className="w-[300px] h-[450px] bg-white rounded-2xl shadow-md 
                        hover:shadow-xl transition-all duration-300 
-                       overflow-hidden m-3 flex flex-col group hover:-translate-y-1 mt-10"
+                       overflow-hidden m-3 flex flex-col group hover:-translate-y-1 mt-10 z-40"
         >
             {/* Image */}
             <div className="relative w-full h-[220px] overflow-hidden">

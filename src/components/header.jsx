@@ -3,14 +3,13 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import UserData from "./userData";
 
-
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <>
       {/* ================= HEADER ================= */}
-      <header className="w-full bg-accent text-white px-4 md:px-10 h-[72px] md:h-[90px] shadow-md top-0 left-0 z-100">
+      <header className="w-full bg-accent text-white px-4 md:px-10 h-[72px] md:h-[90px] shadow-md top-0 left-0 z-50">
         <div className="w-full h-full flex items-center relative">
 
           {/* Mobile Menu Button */}
@@ -33,11 +32,7 @@ export default function Header() {
             {["/", "/products", "/about", "/contact"].map((path, i) => {
               const name = ["Home", "Products", "About", "Contact"][i];
               return (
-                <Link
-                  key={i}
-                  className="relative group"
-                  to={path}
-                >
+                <Link key={i} className="relative group" to={path}>
                   {name}
                   <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-white transition-all group-hover:w-full" />
                 </Link>
@@ -46,14 +41,14 @@ export default function Header() {
           </nav>
 
           {/* Desktop User Pill */}
-          <div className="hidden md:flex ">
+          <div className="hidden md:flex z-50">
             <UserData />
           </div>
 
           {/* Cart */}
           <Link
             to="/cart"
-            className="absolute right-4 flex items-center justify-center text-3xl md:text-4xl hover:scale-110 transition"
+            className="absolute right-4 flex items-center justify-center text-3xl md:text-4xl hover:scale-110 transition z-50"
           >
             <IoCartOutline />
           </Link>
@@ -62,7 +57,7 @@ export default function Header() {
 
       {/* ================= MOBILE SIDEBAR ================= */}
       <div
-        className={`fixed top-0 left-0 h-full w-[280px] bg-white text-gray-800 z-[200] transform
+        className={`fixed top-0 left-0 h-full w-[280px] bg-white text-gray-800 z-40 transform
           ${menuOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 shadow-xl`}
       >
         {/* Sidebar Header */}
@@ -111,7 +106,7 @@ export default function Header() {
       {/* ================= OVERLAY ================= */}
       {menuOpen && (
         <div
-          className="fixed inset-0 bg-black/40 z-[150]"
+          className="fixed inset-0 bg-black/40 z-30"
           onClick={() => setMenuOpen(false)}
         />
       )}
