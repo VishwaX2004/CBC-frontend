@@ -7,6 +7,7 @@ import Test from './Pages/Test.jsx'
 import Loginpage from './Pages/Loginpage.jsx'
 import { Toaster } from 'react-hot-toast'
 import RegisterPage from './Pages/register.jsx'
+import ForgetPassword from './components/forgetPassword.jsx'
 
 
 function App() {
@@ -23,6 +24,8 @@ function App() {
           <Route path='/*' element={<HomePage/>}/>
 
           <Route path="/register/*" element={<RegisterPage/>}/>
+
+          <Route path="/forget-password/*" element={<ForgetPassword/>}/>
 
           <Route path="/login/*" element={<Loginpage/>}/>
 

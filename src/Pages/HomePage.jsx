@@ -5,6 +5,7 @@ import { ProductPage } from "./ProductPage";
 import ProductOverView from "./Admin/productOverview";
 import CartPage from "./cart";
 import CheckoutPage from "./checkout";
+import { HomePageComponent } from "../components/homePageComponent";
 
 export default function HomePage() {
 
@@ -15,7 +16,7 @@ export default function HomePage() {
             <Header/>
 
             <Routes path="/">
-                <Route path="/" element={<h1 className="text-text">Welcome to Home Page</h1>} />
+                <Route path="/" element={<HomePageComponent/>} />
                 <Route path="/products" element={<ProductPage/>}/>
                 <Route path="/about" element={<h1 className="text-text">About Us</h1>} />
                 <Route path="/contact" element={<h1 className="text-text">Contact Us</h1>} />
@@ -24,7 +25,6 @@ export default function HomePage() {
                 <Route path="/cart" element={<CartPage/>}/>
                 <Route path="/checkout" element={<CheckoutPage/>}/>
                 
-
             </Routes>
 
 

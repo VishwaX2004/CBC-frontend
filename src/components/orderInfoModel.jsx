@@ -124,10 +124,10 @@ export default function OrderDetailsModal({
                                 >
                                     <option value="Pending">Pending</option>
                                     <option value="Processing">Processing</option>
-                                    <option value="Cancelled">Shipped</option>
+                                    <option value="Shipped">Shipped</option>
                                     <option value="Completed">Completed</option>
                                     <option value="Cancelled">Cancelled</option>
-                                    <option value="Cancelled">Refunded</option>
+                                    <option value="Refunded">Refunded</option>
                                 </select>
 
                                 <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-text/60 text-xs">
