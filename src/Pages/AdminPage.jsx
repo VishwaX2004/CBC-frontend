@@ -12,6 +12,7 @@ import Adminaddnewproduct from "./Admin/Adminaddnewproduct";
 import UpdateProductPage from "./Admin/adminUpdateProduct";
 import AdminOrdersPage from "./Admin/AdminOrders";
 import { Loader } from "../components/loader";
+import AdminUserspage from "./Admin/usersPage";
 
 export default function AdminPage() {
   const navigate = useNavigate();
@@ -93,6 +94,7 @@ export default function AdminPage() {
             <Route path="/orders" element={<AdminOrdersPage />} />
             <Route path="/add-product" element={<Adminaddnewproduct />} />
             <Route path="/update-product" element={<UpdateProductPage />} />
+            <Route path="/users" element={<AdminUserspage/>} />
           </Routes>
         </div>
       </main>
