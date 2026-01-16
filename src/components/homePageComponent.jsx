@@ -112,8 +112,7 @@ export function HomePageComponent() {
         </button>
       </section>
 
-      {/* Footer */}
-      <Footer />
+     
     </main>
   );
 }

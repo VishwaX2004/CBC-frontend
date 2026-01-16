@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 import Header from "../components/header";
-import AdminPage from "./AdminPage";
 import { ProductPage } from "./ProductPage";
 import ProductOverView from "./Admin/productOverview";
 import CartPage from "./cart";
 import CheckoutPage from "./checkout";
 import { HomePageComponent } from "../components/homePageComponent";
+import Footer from "../components/footer";
 
 export default function HomePage() {
 
@@ -27,6 +27,7 @@ export default function HomePage() {
                 
             </Routes>
 
+            <Footer/>
 
         </div>
 

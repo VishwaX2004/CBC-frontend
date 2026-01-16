@@ -1,63 +1,76 @@
+import { FaInstagram, FaFacebookF, FaTwitter } from "react-icons/fa";
+
 export default function Footer() {
-  return (
-    <footer className="bg-[var(--color-accent)] text-white mt-16">
-      <div className="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row justify-between items-center gap-6">
-        {/* Branding */}
-        <div className="flex flex-col items-center md:items-start">
-          <h2 className="text-2xl font-bold">Glow & Shine Cosmetics</h2>
-          <p className="text-sm text-white/80 mt-1">
-            Premium skincare & beauty products.
-          </p>
-        </div>
+    return (
+        <footer className="bg-gradient-to-br from-accent via-orange-500 to-accent text-white">
+            <div className="max-w-6xl mx-auto px-6 py-14">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-10">
 
-        {/* Links */}
-        <div className="flex gap-6">
-          <a
-            href="#products"
-            className="hover:text-[var(--color-secondary)] transition-colors"
-          >
-            Products
-          </a>
-          <a
-            href="#about"
-            className="hover:text-[var(--color-secondary)] transition-colors"
-          >
-            About
-          </a>
-          <a
-            href="#contact"
-            className="hover:text-[var(--color-secondary)] transition-colors"
-          >
-            Contact
-          </a>
-        </div>
+                    {/* Branding */}
+                    <div className="flex flex-col items-center md:items-start text-center md:text-left">
+                        <h2 className="text-3xl font-extrabold tracking-wide">
+                            Glow & Shine
+                        </h2>
+                        <p className="text-sm text-white/80 mt-2 max-w-xs">
+                            Premium skincare & beauty products crafted for radiant confidence.
+                        </p>
+                    </div>
 
-        {/* Socials */}
-        <div className="flex gap-4">
-          <a
-            href="#"
-            className="hover:text-[var(--color-secondary)] transition-colors"
-          >
-            Instagram
-          </a>
-          <a
-            href="#"
-            className="hover:text-[var(--color-secondary)] transition-colors"
-          >
-            Facebook
-          </a>
-          <a
-            href="#"
-            className="hover:text-[var(--color-secondary)] transition-colors"
-          >
-            Twitter
-          </a>
-        </div>
-      </div>
+                    {/* Links */}
+                    <div className="flex gap-8 text-sm font-medium">
+                        {["Products", "About", "Contact"].map((item) => (
+                            <a
+                                key={item}
+                                href={`#${item.toLowerCase()}`}
+                                className="relative group"
+                            >
+                                <span className="transition-colors group-hover:text-secondary">
+                                    {item}
+                                </span>
+                                <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-secondary transition-all duration-300 group-hover:w-full"></span>
+                            </a>
+                        ))}
+                    </div>
 
-      <div className="text-center text-white/60 text-sm py-4 border-t border-white/20">
-        © {new Date().getFullYear()} Glow & Shine Cosmetics. All rights reserved.
-      </div>
-    </footer>
-  );
+                    {/* Socials */}
+                    <div className="flex gap-4">
+                        <a
+                            href="#"
+                            className="w-11 h-11 rounded-full bg-white/10 backdrop-blur
+                                       flex items-center justify-center
+                                       hover:bg-secondary hover:text-accent
+                                       transition-all duration-300 hover:-translate-y-1"
+                        >
+                            <FaInstagram size={18} />
+                        </a>
+
+                        <a
+                            href="#"
+                            className="w-11 h-11 rounded-full bg-white/10 backdrop-blur
+                                       flex items-center justify-center
+                                       hover:bg-secondary hover:text-accent
+                                       transition-all duration-300 hover:-translate-y-1"
+                        >
+                            <FaFacebookF size={16} />
+                        </a>
+
+                        <a
+                            href="#"
+                            className="w-11 h-11 rounded-full bg-white/10 backdrop-blur
+                                       flex items-center justify-center
+                                       hover:bg-secondary hover:text-accent
+                                       transition-all duration-300 hover:-translate-y-1"
+                        >
+                            <FaTwitter size={16} />
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            {/* Bottom Bar */}
+            <div className="text-center text-white/70 text-sm py-4 border-t border-white/20 backdrop-blur">
+                © {new Date().getFullYear()} Glow & Shine Cosmetics. All rights reserved.
+            </div>
+        </footer>
+    );
 }
