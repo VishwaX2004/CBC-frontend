@@ -100,7 +100,7 @@ export default function Header() {
             <IoCartOutline className="text-2xl" />
             Cart
           </Link>
-        </nav>
+        </nav> 
       </div>
 
       {/* ================= OVERLAY ================= */}
