@@ -57,59 +57,64 @@ export default function Header() {
 
       {/* ================= MOBILE SIDEBAR ================= */}
       <div
-        className={`fixed top-0 left-0 w-full h-screen bg-white text-gray-800 z-50 transform
-          ${menuOpen ? "translate-y-0" : "-translate-y-full"} transition-transform duration-300 shadow-xl`}
+        className={`fixed inset-0 z-50 flex pointer-events-none`}
       >
-        {/* Sidebar Header */}
-        <div className="flex items-center justify-between px-5 h-[72px] border-b">
-          <span className="font-bold text-lg text-accent">Menu</span>
-          <button
-            className="text-3xl hover:rotate-90 transition z-50"
-            onClick={() => setMenuOpen(false)}
-          >
-            <IoClose />
-          </button>
-        </div>
-
-        {/* Mobile User Pill */}
-        <div className="md:hidden px-6 py-6 border-b">
-          <UserData mobile />
-        </div>
-
-        {/* Mobile Navigation */}
-        <nav className="flex flex-col gap-6 px-6 py-6 text-lg font-medium">
-          {["/", "/products", "/about", "/contact"].map((path, i) => {
-            const name = ["Home", "Products", "About", "Contact"][i];
-            return (
-              <Link
-                key={i}
-                onClick={() => setMenuOpen(false)}
-                to={path}
-                className="hover:text-accent transition"
-              >
-                {name}
-              </Link>
-            );
-          })}
-
-          <Link
-            onClick={() => setMenuOpen(false)}
-            to="/cart"
-            className="flex items-center gap-3 mt-6 text-accent font-semibold"
-          >
-            <IoCartOutline className="text-2xl" />
-            Cart
-          </Link>
-        </nav>
-      </div>
-
-      {/* ================= OVERLAY ================= */}
-      {menuOpen && (
+        {/* Sidebar (Left Half) */}
         <div
-          className="fixed inset-0 bg-black/40 z-40"
+          className={`w-1/2 h-full bg-white text-gray-800 flex flex-col items-center transform transition-transform duration-300 shadow-xl pointer-events-auto
+            ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
+        >
+          {/* Sidebar Header */}
+          <div className="flex items-center justify-between w-full px-5 h-[72px] border-b">
+            <span className="font-bold text-lg text-accent">Menu</span>
+            <button
+              className="text-3xl hover:rotate-90 transition"
+              onClick={() => setMenuOpen(false)}
+            >
+              <IoClose />
+            </button>
+          </div>
+
+          {/* Mobile User Pill */}
+          <div className="w-full px-6 py-6 border-b flex flex-col items-center">
+            <UserData mobile />
+          </div>
+
+          {/* Mobile Navigation */}
+          <nav className="flex flex-col gap-6 w-full px-6 py-6 text-lg font-medium items-center">
+            {["/", "/products", "/about", "/contact"].map((path, i) => {
+              const name = ["Home", "Products", "About", "Contact"][i];
+              return (
+                <Link
+                  key={i}
+                  onClick={() => setMenuOpen(false)}
+                  to={path}
+                  className="hover:text-accent transition w-full text-center"
+                >
+                  {name}
+                </Link>
+              );
+            })}
+
+            <Link
+              onClick={() => setMenuOpen(false)}
+              to="/cart"
+              className="flex items-center gap-3 mt-6 text-accent font-semibold"
+            >
+              <IoCartOutline className="text-2xl" />
+              Cart
+            </Link>
+          </nav>
+        </div>
+
+        {/* Overlay (Right Half) */}
+        <div
+          className={`w-1/2 h-full bg-black/40 pointer-events-auto ${
+            menuOpen ? "block" : "hidden"
+          }`}
           onClick={() => setMenuOpen(false)}
         />
-      )}
+      </div>
     </>
   );
 }

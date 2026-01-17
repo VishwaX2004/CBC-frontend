@@ -22,7 +22,7 @@ export default function HomePage() {
                 <Route path="/about" element={<h1 className="text-text">About Us</h1>} />
                 <Route path="/contact" element={<h1 className="text-text">Contact Us</h1>} />
                 <Route path="/*" element={<h1 className="text-text">Page Not Found</h1>} />
-                <Route path="/overview/:id" element={<ProductOverView/>}/>
+                <Route path="/overview/:id" element={<ProductOverView />} />
                 <Route path="/cart" element={<CartPage/>}/>
                 <Route path="/checkout" element={<CheckoutPage/>}/>
                 <Route path="/settings" element={<UserSettingPage/>}/>
