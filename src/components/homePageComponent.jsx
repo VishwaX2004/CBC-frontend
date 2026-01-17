@@ -25,7 +25,7 @@ export function HomePageComponent() {
   }, [isLoading]);
 
   return (
-    <main className="w-full bg-primary min-h-screen">
+    <main className="w-full bg-primary min-h-screen lg:mt-5">
       {/* ================= HERO SECTION ================= */}
       <section className="relative">
         {/* Background blobs */}
