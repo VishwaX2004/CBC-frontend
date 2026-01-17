@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { IoChevronDown } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
@@ -8,20 +8,24 @@ export default function UserData({ mobile = false }) {
   const [loading, setLoading] = useState(true);
   const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = useState(false);
 
-  useEffect(() => {
+  // 🔹 Fetch logged-in user
+  const fetchUser = useCallback(() => {
     const token = localStorage.getItem("token");
 
     if (!token) {
+      setUser(null);
       setLoading(false);
       return;
     }
 
     axios
       .get(`${import.meta.env.VITE_API_URL}/api/users/me`, {
-        headers: { Authorization: "Bearer " + token },
+        headers: {
+          Authorization: "Bearer " + token,
+        },
       })
-      .then((response) => {
-        setUser(response.data);
+      .then((res) => {
+        setUser(res.data);
         setLoading(false);
       })
       .catch(() => {
@@ -31,29 +35,39 @@ export default function UserData({ mobile = false }) {
       });
   }, []);
 
-  return (
-    <div className={`flex items-center ${mobile ? "flex-col w-full" : "mr-[80px] md:mr-12 lg:mr-24"}`}>
+  // 🔹 Initial fetch + listen for profile updates
+  useEffect(() => {
+    fetchUser();
+    window.addEventListener("user-updated", fetchUser);
+    return () => window.removeEventListener("user-updated", fetchUser);
+  }, [fetchUser]);
 
-      {/* Logout Confirmation Modal */}
+  return (
+    <div
+      className={`flex items-center ${
+        mobile ? "flex-col w-full" : "mr-[80px] md:mr-12 lg:mr-24"
+      }`}
+    >
+      {/* 🔴 Logout Confirmation Modal */}
       {isLogoutConfirmOpen && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white p-6 rounded-2xl shadow-xl w-full max-w-sm">
-            <p className="text-gray-700 mb-4 text-center font-medium">
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-sm">
+            <p className="text-gray-700 text-center font-medium mb-6">
               Are you sure you want to logout?
             </p>
             <div className="flex justify-center gap-4">
               <button
-                className="px-5 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700 transition"
                 onClick={() => {
                   localStorage.removeItem("token");
                   window.location.href = "/";
                 }}
+                className="px-5 py-2 rounded-xl bg-red-600 text-white hover:bg-red-700 transition"
               >
                 Yes
               </button>
               <button
-                className="px-5 py-2 bg-gray-200 text-gray-700 rounded-xl hover:bg-gray-300 transition"
                 onClick={() => setIsLogoutConfirmOpen(false)}
+                className="px-5 py-2 rounded-xl bg-gray-200 text-gray-700 hover:bg-gray-300 transition"
               >
                 No
               </button>
@@ -62,40 +76,53 @@ export default function UserData({ mobile = false }) {
         </div>
       )}
 
-      {/* Loader */}
+      {/* 🔄 Loader */}
       {loading && (
         <div className="w-7 h-7 border-2 border-white border-t-transparent rounded-full animate-spin" />
       )}
 
-      {/* User Pill */}
+      {/* 👤 User Pill */}
       {!loading && user && (
         <div
-          className={`group relative flex items-center mr-4 gap-3 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition ${
+          className={`group relative flex items-center gap-3 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition ${
             mobile ? "w-full mt-4" : ""
           }`}
         >
+          {/* ✅ Cache-busted profile image */}
           <img
-            src={user?.image || "/default-avatar.png"}
+            src={
+              user.image
+                ? `${user.image}?t=${Date.now()}`
+                : "/default-avatar.png"
+            }
             alt="User Avatar"
-            className="w-10 h-10 rounded-full object-cover border border-gray-300"
+            className="w-11 h-11 rounded-full border object-cover border-gray-300"
           />
-          <span className="text-sm font-semibold text-gray-700 whitespace-nowrap mr-[15px]">
+
+          <span className="text-sm font-semibold text-gray-700 whitespace-nowrap mr-5">
             {user.firstName}
           </span>
-          <IoChevronDown className="ml-auto text-gray-500 text-sm transition group-hover:rotate-180 z-50" />
 
-          {/* Dropdown Menu */}
+          <IoChevronDown className="text-gray-500 text-sm transition group-hover:rotate-180" />
+
+          {/* ⬇ Dropdown */}
           <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
-            <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">
+            <Link
+              to="/settings"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
+            >
               Account Settings
-            </button>
-            <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">
+            </Link>
+            <Link
+              to="/orders"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
+            >
               Orders
-            </button>
+            </Link>
             <div className="h-px bg-gray-200 my-1" />
             <button
-              className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition"
               onClick={() => setIsLogoutConfirmOpen(true)}
+              className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition"
             >
               Logout
             </button>
@@ -103,12 +130,12 @@ export default function UserData({ mobile = false }) {
         </div>
       )}
 
-      {/* Login Button if no user */}
+      {/* 🔐 Login Button */}
       {!loading && !user && (
         <Link
           to="/login"
-          className={`flex items-center justify-center px-4 py-2 rounded-full font-semibold text-accent bg-white hover:bg-accent-dark transition ${
-            mobile ? "w-full mt-4" : ""
+          className={`px-5 py-2 rounded-full font-semibold bg-white text-accent hover:bg-accent hover:text-white transition ${
+            mobile ? "w-full mt-4 text-center" : ""
           }`}
         >
           Login
