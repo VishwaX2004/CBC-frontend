@@ -25,7 +25,7 @@ export function HomePageComponent() {
   }, [isLoading]);
 
   return (
-    <main className="w-full bg-primary min-h-screen mt-10">
+    <main className="w-full bg-primary min-h-screen mt-12">
       {/* ================= HERO SECTION ================= */}
       <section className="relative">
         {/* Background blobs */}
@@ -80,7 +80,7 @@ export function HomePageComponent() {
       {/* Featured Products */}
       <section
         id="products"
-        className="max-w-6xl mx-auto px-4 py-16 relative z-10"
+        className="max-w-6xl mx-auto px-4 py-8 relative z-10"
       >
         <h2 className="text-3xl font-bold text-text mb-8 text-center">
           Featured Products
