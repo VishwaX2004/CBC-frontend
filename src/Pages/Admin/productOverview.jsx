@@ -1,17 +1,17 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Loader } from "../../components/loader";
-import ImageSlider from "../../components/imageSlider";
-import { AddtoCart } from "../../Utils/cart";
 
-export default function ProductOverView() {
- 	const params = useParams();
-	//laoding, success, error
+
+export default function ProductOverview() {
+	const params = useParams();
+	// loading, success, error
 	const [status, setStatus] = useState("loading");
 	const [product, setProduct] = useState(null);
+
 	useEffect(() => {
+		if (!params.id) return;
+
 		axios
 			.get(import.meta.env.VITE_API_URL + "/api/products/" + params.id)
 			.then((res) => {
@@ -22,64 +22,98 @@ export default function ProductOverView() {
 				toast.error("Failed to fetch product details");
 				setStatus("error");
 			});
-	}, []);
-  if (status === "Loading") return <Loader />;
-  if (status === "error") return <div className="text-red-500 text-center mt-10">Failed to load Product</div>;
+	}, [params.id]);
 
-  return (
-    <div className="w-full min-h-[calc(100vh-100px)] bg-primary text-text px-3 sm:px-5 md:px-10 py-6 sm:py-8">
-      <div className="max-w-[1300px] mx-auto bg-white rounded-3xl shadow-xl p-4 sm:p-6 md:p-10 flex flex-col lg:flex-row gap-8 lg:gap-12">
-        {/* Image */}
-        <div className="lg:w-1/2 w-full flex justify-center">
-          <div className="w-full max-w-[520px] rounded-2xl overflow-hidden shadow-lg">
-            <ImageSlider images={product.images ?? []} />
-          </div>
-        </div>
+	return (
+		<div className="w-full lg:h-[calc(100vh-100px)] text-secondary bg-primary">
+			{status === "loading" && <Loader />}
 
-        {/* Content */}
-        <div className="lg:w-1/2 w-full flex flex-col gap-5">
-          <span className="text-xs uppercase tracking-widest text-gray-400 font-semibold">
-            Product Code · {product.productID}
-          </span>
+			{status === "success" && product && (
+				<div className="w-full flex flex-col lg:flex-row p-10">
+					<h1 className="text-2xl font-bold text-center lg:hidden">
+						{product.name}
+					</h1>
 
-          <h1 className="text-2xl md:text-3xl font-bold break-words">
-            {product.name}
-            {(product.altNames ?? []).map((n, idx) => (
-              <span key={idx} className="block text-base font-normal text-gray-500 mt-1">{n}</span>
-            ))}
-          </h1>
+					<div className="w-full lg:w-[50%] h-full flex justify-center items-center">
+						<ImageSlider images={product.images ?? []} />
+					</div>
 
-          {product.category && (
-            <span className="inline-block px-5 py-1.5 text-sm rounded-full bg-secondary text-text font-bold">{product.category}</span>
-          )}
+					<div className="w-full lg:w-[50%] h-full flex flex-col bg-primary items-center gap-4 p-10">
+						<span>{product.productID}</span>
 
-          <p className="text-sm leading-relaxed text-gray-600 text-justify">{product.description}</p>
+						<h1 className="text-2xl font-bold text-center">
+							{product.name}
+							{(product.altNames ?? []).map((name, index) => (
+								<span
+									key={index}
+									className="font-normal text-secondary"
+								>
+									{" | " + name}
+								</span>
+							))}
+						</h1>
 
-          {product.labelledPrice > product.price ? (
-            <div className="flex items-center gap-4 mt-1 flex-wrap">
-              <p className="text-sm text-accent line-through font-medium">LKR {product.labelledPrice.toFixed(2)}</p>
-              <p className="text-2xl font-extrabold">LKR {product.price.toFixed(2)}</p>
-            </div>
-          ) : (
-            <p className="text-2xl text-accent font-extrabold mt-1">LKR {product.price.toFixed(2)}</p>
-          )}
+						{/* description */}
+						<p className="mt-[30px] text-justify">
+							{product.description}
+						</p>
 
-          <div className="w-full h-px bg-gray-200 my-3"></div>
+						{/* category */}
+						<p>Category: {product.category}</p>
 
-          <div className="flex flex-col sm:flex-row gap-4 mt-4">
-            <button
-              onClick={() => { AddtoCart(product, 1); toast.success("Added to Cart"); }}
-              className="flex-1 h-[46px] rounded-2xl bg-accent text-white font-semibold hover:scale-[1.02] transition-all"
-            >Add to Cart</button>
+						{/* price */}
+						{product.labelledPrice > product.price ? (
+							<div className="flex gap-3 items-center">
+								<p className="text-lg text-secondary font-semibold line-through">
+									LKR {product.labelledPrice.toFixed(2)}
+								</p>
+								<p className="text-lg text-accent font-semibold">
+									LKR {product.price.toFixed(2)}
+								</p>
+							</div>
+						) : (
+							<p className="text-lg text-accent font-semibold">
+								LKR {product.price.toFixed(2)}
+							</p>
+						)}
 
-            <Link
-              to="/checkout"
-              state={[{ ...product, quantity: 1 }]}
-              className="flex-1 h-[46px] rounded-2xl border-2 border-accent text-accent font-semibold hover:bg-accent hover:text-white hover:scale-[1.02] transition-all flex items-center justify-center"
-            >Buy Now</Link>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+						<div className="w-full h-[40px] flex gap-4 mt-[60px]">
+							<button
+								className="w-[50%] h-full bg-accent text-white font-semibold hover:bg-accent/80"
+								onClick={() => {
+									addToCart(product, 1);
+									toast.success("Added to cart");
+								}}
+							>
+								Add to Cart
+							</button>
+
+							<Link
+								to="/checkout"
+								state={[
+									{
+										image: product.images?.[0] ?? "",
+										productID: product.productID,
+										name: product.name,
+										price: product.price,
+										labelledPrice: product.labelledPrice,
+										quantity: 1
+									}
+								]}
+								className="w-[50%] flex justify-center items-center text-center h-full border border-accent text-accent font-semibold hover:bg-accent hover:text-white"
+							>
+								Buy Now
+							</Link>
+						</div>
+					</div>
+				</div>
+			)}
+
+			{status === "error" && (
+				<h1 className="text-red-500">
+					Failed to load product details
+				</h1>
+			)}
+		</div>
+	);
 }
