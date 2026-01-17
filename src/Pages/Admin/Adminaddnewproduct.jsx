@@ -142,7 +142,7 @@ export default function Adminaddnewproduct() {
                     {/* Images */}
                     <div>
                         <label className="block text-sm font-medium text-text mb-1">
-                            Product Images
+                          Product Images
                         </label>
                         <input
                             type="file"
