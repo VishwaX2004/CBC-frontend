@@ -7,20 +7,22 @@ import ImageSlider from "../../components/imageSlider";
 import { AddtoCart } from "../../Utils/cart";
 
 export default function ProductOverView() {
-  const { id } = useParams(); // id = productID
-  const [status, setStatus] = useState("Loading");
-  const [product, setProduct] = useState(null);
-
-  useEffect(() => {
-    if (!id) return;
-    setStatus("Loading");
-
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/api/products/${id}`)
-      .then(res => { setProduct(res.data); setStatus("success"); })
-      .catch(() => { toast.error("Failed to fetch Product"); setStatus("error"); });
-  }, [id]);
-
+ 	const params = useParams();
+	//laoding, success, error
+	const [status, setStatus] = useState("loading");
+	const [product, setProduct] = useState(null);
+	useEffect(() => {
+		axios
+			.get(import.meta.env.VITE_API_URL + "/api/products/" + params.id)
+			.then((res) => {
+				setProduct(res.data);
+				setStatus("success");
+			})
+			.catch(() => {
+				toast.error("Failed to fetch product details");
+				setStatus("error");
+			});
+	}, []);
   if (status === "Loading") return <Loader />;
   if (status === "error") return <div className="text-red-500 text-center mt-10">Failed to load Product</div>;
 
