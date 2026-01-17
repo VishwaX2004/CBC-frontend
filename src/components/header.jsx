@@ -9,12 +9,12 @@ export default function Header() {
   return (
     <>
       {/* ================= HEADER ================= */}
-      <header className="w-full bg-accent text-white px-4 md:px-10 h-[72px] md:h-[90px] shadow-md top-0 left-0 z-50">
+      <header className="w-full bg-accent text-white px-4 md:px-10 h-[72px] md:h-[90px] shadow-md top-0 left-0 z-50 fixed">
         <div className="w-full h-full flex items-center relative">
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-3xl absolute left-4 hover:scale-110 transition"
+            className="md:hidden text-3xl absolute left-4 z-50 hover:scale-110 transition"
             onClick={() => setMenuOpen(true)}
           >
             <IoMenu />
@@ -24,7 +24,7 @@ export default function Header() {
           <img
             src="/logo.png"
             alt="Logo"
-            className="h-full object-contain w-[80px] md:w-[110px] absolute left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0"
+            className="h-full object-contain w-[80px] md:w-[110px] absolute left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 z-50"
           />
 
           {/* Desktop Navigation */}
@@ -57,14 +57,14 @@ export default function Header() {
 
       {/* ================= MOBILE SIDEBAR ================= */}
       <div
-        className={`fixed top-0 left-0 h-full w-[280px] bg-white text-gray-800 z-40 transform
-          ${menuOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 shadow-xl`}
+        className={`fixed top-0 left-0 w-full h-screen bg-white text-gray-800 z-50 transform
+          ${menuOpen ? "translate-y-0" : "-translate-y-full"} transition-transform duration-300 shadow-xl`}
       >
         {/* Sidebar Header */}
         <div className="flex items-center justify-between px-5 h-[72px] border-b">
           <span className="font-bold text-lg text-accent">Menu</span>
           <button
-            className="text-3xl hover:rotate-90 transition"
+            className="text-3xl hover:rotate-90 transition z-50"
             onClick={() => setMenuOpen(false)}
           >
             <IoClose />
@@ -100,13 +100,13 @@ export default function Header() {
             <IoCartOutline className="text-2xl" />
             Cart
           </Link>
-        </nav> 
+        </nav>
       </div>
 
       {/* ================= OVERLAY ================= */}
       {menuOpen && (
         <div
-          className="fixed inset-0 bg-black/40 z-30"
+          className="fixed inset-0 bg-black/40 z-40"
           onClick={() => setMenuOpen(false)}
         />
       )}
