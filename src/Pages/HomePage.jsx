@@ -6,6 +6,7 @@ import CartPage from "./cart";
 import CheckoutPage from "./checkout";
 import { HomePageComponent } from "../components/homePageComponent";
 import Footer from "../components/footer";
+import UserSettingPage from "./userSetting";
 
 export default function HomePage() {
 
@@ -24,6 +25,7 @@ export default function HomePage() {
                 <Route path="/overview/:id" element={<ProductOverView/>}/>
                 <Route path="/cart" element={<CartPage/>}/>
                 <Route path="/checkout" element={<CheckoutPage/>}/>
+                <Route path="/settings" element={<UserSettingPage/>}/>
                 
             </Routes>
 
