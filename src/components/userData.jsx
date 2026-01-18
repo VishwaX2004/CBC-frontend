@@ -53,7 +53,7 @@ export default function UserData({ mobile = false }) {
         <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-sm">
             <p className="text-gray-700 text-center font-medium mb-6">
-              Are you sure you want to logout?
+              Are you really sure you want to logout?
             </p>
             <div className="flex justify-center gap-4">
               <button

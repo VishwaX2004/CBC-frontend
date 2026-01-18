@@ -12,32 +12,23 @@ import { ContactUS } from "./contactus";
 import { PageNotFound } from "./pagenotfound";
 
 export default function HomePage() {
+  return (
+    <div className="w-full h-full bg-primary">
+      <Header />
 
-    return (
+      <Routes>
+        <Route path="/" element={<HomePageComponent />} />
+        <Route path="/products" element={<ProductPage />} />
+        <Route path="/about" element={<AboutUsPage />} />
+        <Route path="/contact" element={<ContactUS />} />
+        <Route path="/*" element={<PageNotFound />} />
+        <Route path="/overview/:id" element={<ProductOverView />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/settings" element={<UserSettingPage />} />
+      </Routes>
 
-        <div className="w-full h-full bg-primary">
-            
-            <Header/>
-
-            <Routes path="/">
-                <Route path="/" element={<HomePageComponent/>} />
-                <Route path="/products" element={<ProductPage/>}/>
-                <Route path="/about" element={<AboutUsPage/>} />
-                <Route path="/contact" element={<ContactUS/>} />
-                <Route path="/*" element={<PageNotFound/>} />
-                <Route path="/overview/:id" element={<ProductOverView/>}/>
-                <Route path="/cart" element={<CartPage/>}/>
-                <Route path="/checkout" element={<CheckoutPage/>}/>
-                <Route path="/settings" element={<UserSettingPage/>}/>
-                
-            </Routes>
-
-            <Footer/>
-
-        </div>
-
-
-    )
-
-
+      <Footer />
+    </div>
+  );
 }

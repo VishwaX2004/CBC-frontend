@@ -2,7 +2,7 @@ import { FaInstagram, FaFacebookF, FaTwitter } from "react-icons/fa";
 
 export default function Footer() {
     return (
-        <footer className="bg-gradient-to-br from-accent via-orange-500 to-accent text-white">
+        <footer className="bg-gradient-to-br from-accent via-orange-500 to-accent text-white mt-10">
             <div className="max-w-6xl mx-auto px-6 py-14">
                 <div className="flex flex-col md:flex-row justify-between items-center gap-10">
 
