@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import ProductCard from "../components/productCard";
 import { Loader } from "../components/loader";
 import { Link } from "react-router-dom";
-import Footer from "../components/footer";
+
 
 export function HomePageComponent() {
   const [products, setProducts] = useState([]);
@@ -51,7 +51,7 @@ export function HomePageComponent() {
 
             <div className="flex gap-4 flex-wrap">
               <Link
-                to="/shop"
+                to="/products"
                 className="px-8 py-3 rounded-full bg-accent text-white font-semibold hover:scale-105 transition"
               >
                 Shop Now
@@ -107,9 +107,9 @@ export function HomePageComponent() {
           Our products are cruelty-free, dermatologist-tested, and made with
           premium ingredients.
         </p>
-        <button className="px-6 py-3 rounded-xl bg-accent text-white font-semibold hover:opacity-90 transition duration-300">
+        <Link to="/about" className="px-6 py-3 rounded-xl bg-accent text-white font-semibold hover:opacity-90 transition duration-300">
           Learn More
-        </button>
+        </Link>
       </section>
 
      
