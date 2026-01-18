@@ -25,7 +25,7 @@ export function HomePageComponent() {
   }, [isLoading]);
 
   return (
-    <main className="w-full bg-primary min-h-screen">
+    <main className="w-full bg-primary min-h-[calc(100vh-100px)] lg:mt-10">
       {/* ================= HERO SECTION ================= */}
       <section className="relative">
         {/* Background blobs */}
@@ -80,7 +80,7 @@ export function HomePageComponent() {
       {/* Featured Products */}
       <section
         id="products"
-        className="max-w-6xl mx-auto px-4 py-16 relative z-10"
+        className="max-w-6xl mx-auto px-4 py-10 relative z-10"
       >
         <h2 className="text-3xl font-bold text-text mb-8 text-center">
           Featured Products
@@ -97,9 +97,8 @@ export function HomePageComponent() {
             ))}
           </div>
         )}
-      </section>
 
-      {/* About Section */}
+         {/* About Section */}
       <section className="bg-white/50 backdrop-blur-lg py-16 px-6 text-center rounded-2xl mx-4 md:mx-16 my-12 shadow-lg relative z-10">
         <h2 className="text-3xl font-bold text-text mb-4">Why Choose Us?</h2>
         <p className="text-text/80 max-w-3xl mx-auto mb-6">
@@ -112,7 +111,8 @@ export function HomePageComponent() {
         </Link>
       </section>
 
-     
+      </section>
+
     </main>
   );
 }

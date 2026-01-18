@@ -74,7 +74,7 @@ export function ContactUS() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-primary text-text px-6 py-16">
+    <div className="w-full min-h-[calc(100vh-100px)] mt-12 lg:mt-20 bg-primary text-text px-6 py-16">
       <Toaster position="top-right" />
 
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16">
@@ -107,7 +107,7 @@ export function ContactUS() {
         {/* Contact Form */}
         <form
           onSubmit={handleSubmit}
-          className="bg-white rounded-3xl shadow-2xl p-8 flex flex-col gap-4"
+          className="bg-white rounded-3xl shadow-2xl p-8 flex flex-col gap-4 lg:mt-10"
         >
           <h2 className="text-2xl font-bold text-accent mb-4 text-center">
             Send Us a Message
