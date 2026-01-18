@@ -37,132 +37,118 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-[url('/up.jpg')] flex flex-col md:flex-row">
+    <div className="w-full min-h-screen bg-[url('/up.jpg')] bg-cover bg-center flex flex-col md:flex-row">
 
       {/* LEFT – REGISTER FORM */}
-      <div className="w-full md:w-1/2 flex items-center justify-center py-10 px-4 sm:px-6 lg:px-12">
-        <div className="w-full lg:h-[650px] lg:w-full max-w-md bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl px-8 sm:px-10 py-10 sm:py-12">
+      <div className="w-full md:w-1/2 flex items-center justify-center px-4 sm:px-6 lg:px-12 py-10">
+        <div className="w-full max-w-md bg-white/90 backdrop-blur-2xl rounded-3xl shadow-[0_25px_80px_-15px_rgba(0,0,0,0.25)] px-8 sm:px-10 py-10 sm:py-12 transition-all">
+
           <h2 className="text-3xl sm:text-4xl font-bold text-text mb-2 text-center">
-            Register
+            Create Account
           </h2>
           <p className="text-sm sm:text-base text-text/70 mb-8 text-center">
-            Access your orders, wishlist, and exclusive offers
+            Join us for exclusive offers and beauty updates
           </p>
 
-          <form className="space-y-4">
-            {/* First Name + Last Name */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <div className="flex-1">
-                <label className="block text-sm font-medium text-text mb-1">
-                  First Name
-                </label>
+          <form className="space-y-5">
+
+            {/* Name Fields */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-text">First Name</label>
                 <input
                   type="text"
-                  placeholder="First Name"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
-                  className="w-full h-11 px-4 rounded-xl border border-gray-200 bg-white text-text
-                  placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition"
+                  placeholder="First Name"
+                  className="w-full h-11 px-4 rounded-2xl border border-gray-200 bg-white text-text
+                  focus:ring-2 focus:ring-accent/40 focus:border-accent transition-all"
                   required
                 />
               </div>
-              <div className="flex-1">
-                <label className="block text-sm font-medium text-text mb-1">
-                  Last Name
-                </label>
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-text">Last Name</label>
                 <input
                   type="text"
-                  placeholder="Last Name"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
-                  className="w-full h-11 px-4 rounded-xl border border-gray-200 bg-white text-text
-                  placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition"
+                  placeholder="Last Name"
+                  className="w-full h-11 px-4 rounded-2xl border border-gray-200 bg-white text-text
+                  focus:ring-2 focus:ring-accent/40 focus:border-accent transition-all"
                   required
                 />
               </div>
             </div>
 
             {/* Email */}
-            <div>
-              <label className="block text-sm font-medium text-text mb-1">
-                Email Address
-              </label>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-text">Email Address</label>
               <input
                 type="email"
-                placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full h-11 px-4 rounded-xl border border-gray-200 bg-white text-text
-                placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition"
+                placeholder="you@example.com"
+                className="w-full h-11 px-4 rounded-2xl border border-gray-200 bg-white text-text
+                placeholder:text-gray-400 focus:ring-2 focus:ring-accent/40 focus:border-accent transition-all"
                 required
               />
             </div>
 
             {/* Password */}
-            <div>
-              <label className="block text-sm font-medium text-text mb-1">
-                Password
-              </label>
-              <div className="relative">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full h-11 px-4 pr-12 rounded-xl border border-gray-200 bg-white text-text
-                  placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition"
-                  required
-                />
-                <div
-                  className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500 hover:text-accent transition"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? (
-                    <AiOutlineEyeInvisible size={20} />
-                  ) : (
-                    <AiOutlineEye size={20} />
-                  )}
-                </div>
-              </div>
+            <div className="space-y-1 relative">
+              <label className="text-sm font-medium text-text">Password</label>
+              <input
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="w-full h-11 px-4 pr-12 rounded-2xl border border-gray-200 bg-white text-text
+                focus:ring-2 focus:ring-accent/40 focus:border-accent transition-all"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-accent transition"
+                aria-label="Toggle password visibility"
+              >
+                {showPassword ? <AiOutlineEyeInvisible size={20} /> : <AiOutlineEye size={20} />}
+              </button>
             </div>
 
             {/* Confirm Password */}
-            <div>
-              <label className="block text-sm font-medium text-text mb-1">
-                Confirm Password
-              </label>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-text">Confirm Password</label>
               <input
                 type={showPassword ? "text" : "password"}
-                placeholder="••••••••"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full h-11 px-4 rounded-xl border border-gray-200 bg-white text-text
-                placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition"
+                placeholder="••••••••"
+                className="w-full h-11 px-4 rounded-2xl border border-gray-200 bg-white text-text
+                focus:ring-2 focus:ring-accent/40 focus:border-accent transition-all"
                 required
               />
             </div>
 
+            {/* Register Button */}
             <button
               type="button"
               onClick={handleRegister}
-              className="w-full h-12 mt-2 rounded-xl bg-accent text-white font-semibold tracking-wide
+              className="w-full h-11 rounded-2xl bg-accent text-white font-medium
               hover:bg-secondary hover:text-text transition-all duration-300 shadow-lg"
             >
-              Register
+              Create Account
             </button>
           </form>
 
           <p className="mt-6 text-center text-sm text-text/70">
             Already have an account?{" "}
-            <Link
-              to="/login"
-              className="text-accent font-medium hover:underline underline-offset-4"
-            >
+            <Link to="/login" className="text-accent font-medium hover:underline">
               Login
             </Link>
           </p>
 
-          <p className="text-xs text-text/60 mt-6 text-center">
+          <p className="mt-8 text-center text-xs text-text/50">
             © {new Date().getFullYear()} Crystal Beauty Clear
           </p>
         </div>
@@ -170,7 +156,7 @@ export default function RegisterPage() {
 
       {/* RIGHT – BRAND VISUAL */}
       <div className="hidden md:flex w-1/2 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50" />
         <div className="relative z-10 w-full h-full flex flex-col justify-center items-center px-16 text-white text-center">
           <img
             src="/logo.png"

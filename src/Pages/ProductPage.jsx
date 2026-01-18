@@ -38,9 +38,9 @@ export function ProductPage() {
   }, [searchQuery]);
 
   return (
-    <div className="w-full min-h-[calc(100vh-100px)] bg-gray-50 px-4 sm:px-6 md:px-8 pt-[100px]">
+    <div className="w-full min-h-[calc(100vh-100px)] bg-gray-50 px-4 sm:px-6 md:px-8 pt-[100px] pb-5">
       {/* Search */}
-      <div className="w-full flex justify-center mb-5 lg:mt-8">
+      <div className="w-full flex justify-center mb-6">
         <div className="relative w-full max-w-md flex justify-center">
           <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 z-10" />
           <input
