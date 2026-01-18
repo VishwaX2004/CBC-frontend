@@ -9,7 +9,7 @@ export default function Footer() {
                     {/* Branding */}
                     <div className="flex flex-col items-center md:items-start text-center md:text-left">
                         <h2 className="text-3xl font-extrabold tracking-wide">
-                            Glow & Shine
+                            Crystal Beauty Clear
                         </h2>
                         <p className="text-sm text-white/80 mt-2 max-w-xs">
                             Premium skincare & beauty products crafted for radiant confidence.
@@ -18,10 +18,10 @@ export default function Footer() {
 
                     {/* Links */}
                     <div className="flex gap-8 text-sm font-medium">
-                        {["Products", "About", "Contact"].map((item) => (
+                        {["products", "about", "contact"].map((item) => (
                             <a
                                 key={item}
-                                href={`#${item.toLowerCase()}`}
+                                href={`/${item}`}
                                 className="relative group"
                             >
                                 <span className="transition-colors group-hover:text-secondary">
@@ -69,7 +69,7 @@ export default function Footer() {
 
             {/* Bottom Bar */}
             <div className="text-center text-white/70 text-sm py-4 border-t border-white/20 backdrop-blur">
-                © {new Date().getFullYear()} Glow & Shine Cosmetics. All rights reserved.
+                © {new Date().getFullYear()} Crystal Beauty Clear. All rights reserved.
             </div>
         </footer>
     );

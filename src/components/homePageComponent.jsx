@@ -25,6 +25,7 @@ export function HomePageComponent() {
 
   return (
     <main className="w-full bg-primary min-h-screen overflow-x-hidden lg:mt-20 mt-10">
+
       {/* ================= HERO SECTION ================= */}
       <section className="relative overflow-hidden">
         {/* Background blobs */}
@@ -50,7 +51,7 @@ export function HomePageComponent() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mt-4">
               <Link
-                to="/shop"
+                to="/products"
                 className="px-6 py-3 rounded-full bg-accent text-white font-semibold hover:scale-105 transition"
               >
                 Shop Now
@@ -105,10 +106,11 @@ export function HomePageComponent() {
           Our products are cruelty-free, dermatologist-tested, and made with
           premium ingredients.
         </p>
-        <button className="px-6 py-3 rounded-xl bg-accent text-white font-semibold hover:opacity-90 transition duration-300">
+        <Link to="/about" className="px-6 py-3 rounded-xl bg-accent text-white font-semibold hover:opacity-90 transition duration-300">
           Learn More
-        </button>
+        </Link>
       </section>
+
     </main>
   );
 }

@@ -1,10 +1,16 @@
 import { IoCartOutline, IoMenu, IoClose } from "react-icons/io5";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 import UserData from "./userData";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+
+  // ✅ CLOSE SIDEBAR ON EVERY PAGE CHANGE
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   return (
     <>
@@ -56,9 +62,7 @@ export default function Header() {
       </header>
 
       {/* ================= MOBILE SIDEBAR ================= */}
-      <div
-        className={`fixed inset-0 z-50 flex pointer-events-none`}
-      >
+      <div className="fixed inset-0 z-50 flex pointer-events-none">
         {/* Sidebar (Left Half) */}
         <div
           className={`w-1/2 h-full bg-white text-gray-800 flex flex-col items-center transform transition-transform duration-300 shadow-xl pointer-events-auto
@@ -87,8 +91,8 @@ export default function Header() {
               return (
                 <Link
                   key={i}
-                  onClick={() => setMenuOpen(false)}
                   to={path}
+                  onClick={() => setMenuOpen(false)}
                   className="hover:text-accent transition w-full text-center"
                 >
                   {name}
@@ -97,8 +101,8 @@ export default function Header() {
             })}
 
             <Link
-              onClick={() => setMenuOpen(false)}
               to="/cart"
+              onClick={() => setMenuOpen(false)}
               className="flex items-center gap-3 mt-6 text-accent font-semibold"
             >
               <IoCartOutline className="text-2xl" />
