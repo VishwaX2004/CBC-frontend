@@ -54,16 +54,14 @@ export function ContactUS() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await axios.post(
-        import.meta.env.VITE_API_URL + "/api/contact",
-        { name, message },
+      const res = await axios.post(import.meta.env.VITE_API_URL + "/api/contact/",
+        { name, message }, // backend uses JWT to get email
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`, // send JWT
           },
         }
       );
-
 
       toast.success(res.data.message || "Message sent successfully!");
       setMessage(""); // clear only the message
@@ -135,8 +133,9 @@ export function ContactUS() {
           <button
             type="submit"
             disabled={loading || !userEmail}
-            className={`w-full bg-accent text-white py-3 rounded-xl font-semibold hover:opacity-90 transition ${!userEmail ? "opacity-50 cursor-not-allowed" : ""
-              }`}
+            className={`w-full bg-accent text-white py-3 rounded-xl font-semibold hover:opacity-90 transition ${
+              !userEmail ? "opacity-50 cursor-not-allowed" : ""
+            }`}
           >
             {loading ? "Sending..." : "Send Message"}
           </button>
