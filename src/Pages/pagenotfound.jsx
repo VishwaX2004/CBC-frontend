@@ -10,7 +10,7 @@ export function PageNotFound() {
 
       {/* Message */}
       <h2 className="text-3xl md:text-5xl font-bold text-text mb-4 text-center">
-        Oops! Page Not Found
+        Oops! Page Not Found!
       </h2>
       <p className="text-lg md:text-xl text-text opacity-90 text-center max-w-xl mb-8">
         The page you are looking for does not exist or has been moved. 
