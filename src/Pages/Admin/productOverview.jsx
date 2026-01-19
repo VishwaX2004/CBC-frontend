@@ -16,7 +16,7 @@ export default function ProductOverView() {
     setStatus("Loading");
 
     axios
-      .get(`${import.meta.env.VITE_API_URL}api/products/${id}`)
+      .get(`${import.meta.env.VITE_API_URL}/api/products/${id}`)
       .then(res => { setProduct(res.data); setStatus("success"); })
       .catch(() => { toast.error("Failed to fetch Product"); setStatus("error"); });
   }, [id]);
