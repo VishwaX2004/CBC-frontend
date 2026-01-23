@@ -61,10 +61,10 @@ export default function Header() {
       </header>
 
       {/* ================= MOBILE SIDEBAR ================= */}
-      <div className="fixed inset-0 z-[100] md:hidden pointer-events-none">
+      <div className={`fixed inset-0 md:hidden z-[90]`}>
         {/* Sidebar */}
         <div
-          className={`fixed top-0 left-0 w-2/3 h-full bg-white text-gray-800 flex flex-col items-center transform transition-transform duration-300 shadow-xl pointer-events-auto
+          className={`fixed top-0 left-0 w-2/3 h-full bg-white text-gray-800 flex flex-col items-center transform transition-transform duration-300 shadow-xl
             ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
         >
           {/* Sidebar Header */}
@@ -115,7 +115,7 @@ export default function Header() {
         {/* Overlay */}
         {menuOpen && (
           <div
-            className="absolute top-0 left-2/3 w-1/3 h-full bg-black/40 pointer-events-auto"
+            className="absolute top-0 left-0 w-full h-full bg-black/40 z-[85]"
             onClick={() => setMenuOpen(false)}
           />
         )}
