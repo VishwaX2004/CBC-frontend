@@ -1,8 +1,35 @@
 import { IoCartOutline, IoMenu, IoClose } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import UserData from "./UserData";
+import UserData from "./userData";
 
+// ================= MOBILE USER PILL =================
+function MobileUserPill() {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  return (
+    <div className="w-full px-6 py-6 border-b flex justify-center relative z-50">
+      <div className="w-full max-w-[220px] relative">
+        {/* Tap to toggle dropdown */}
+        <div
+          className="cursor-pointer"
+          onClick={() => setDropdownOpen(!dropdownOpen)}
+        >
+          <UserData mobile />
+        </div>
+
+        {/* Dropdown menu */}
+        {dropdownOpen && (
+          <div className="absolute right-0 top-full mt-2 w-56 bg-white shadow-md rounded-md p-4">
+            <UserData mobile dropdownClassName="" />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ================= HEADER COMPONENT =================
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
@@ -15,11 +42,11 @@ export default function Header() {
   return (
     <>
       {/* ================= HEADER ================= */}
-      <header className="w-full bg-accent text-white px-4 md:px-10 h-[72px] md:h-[90px] shadow-md top-0 left-0 z-[100] fixed">
+      <header className="w-full bg-accent text-white px-4 md:px-10 h-[72px] md:h-[90px] shadow-md fixed top-0 left-0 z-50">
         <div className="w-full h-full flex items-center relative">
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-3xl absolute left-4 z-[110] hover:scale-110 transition"
+            className="md:hidden text-3xl absolute left-4 z-50 hover:scale-110 transition"
             onClick={() => setMenuOpen(true)}
           >
             <IoMenu />
@@ -29,7 +56,7 @@ export default function Header() {
           <img
             src="/logo.png"
             alt="Logo"
-            className="h-full object-contain w-[80px] md:w-[110px] absolute left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 z-[110]"
+            className="h-full object-contain w-[80px] md:w-[110px] absolute left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 z-50"
           />
 
           {/* Desktop Navigation */}
@@ -46,14 +73,14 @@ export default function Header() {
           </nav>
 
           {/* Desktop User Pill */}
-          <div className="hidden md:flex z-[110]">
+          <div className="hidden md:flex z-50">
             <UserData />
           </div>
 
           {/* Cart */}
           <Link
             to="/cart"
-            className="absolute right-4 flex items-center justify-center text-3xl md:text-4xl hover:scale-110 transition z-[110]"
+            className="absolute right-4 flex items-center justify-center text-3xl md:text-4xl hover:scale-110 transition z-50"
           >
             <IoCartOutline />
           </Link>
@@ -61,10 +88,10 @@ export default function Header() {
       </header>
 
       {/* ================= MOBILE SIDEBAR ================= */}
-      <div className={`fixed inset-0 md:hidden z-[90]`}>
+      <div className="fixed inset-0 z-50 md:hidden pointer-events-none">
         {/* Sidebar */}
         <div
-          className={`fixed top-0 left-0 w-2/3 h-full bg-white text-gray-800 flex flex-col items-center transform transition-transform duration-300 shadow-xl
+          className={`fixed top-0 left-0 h-full w-2/3 bg-white shadow-xl transform transition-transform duration-300 z-50 pointer-events-auto
             ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
         >
           {/* Sidebar Header */}
@@ -79,11 +106,7 @@ export default function Header() {
           </div>
 
           {/* Mobile User Pill */}
-          <div className="w-full px-6 py-6 border-b flex justify-center relative z-[50]">
-            <div className="w-full max-w-[220px]">
-              <UserData mobile />
-            </div>
-          </div>
+          <MobileUserPill />
 
           {/* Mobile Navigation */}
           <nav className="flex flex-col gap-6 w-full px-6 py-6 text-lg font-medium items-center">
@@ -104,7 +127,7 @@ export default function Header() {
             <Link
               to="/cart"
               onClick={() => setMenuOpen(false)}
-              className="flex items-center gap-3 mt-6 text-accent font-semibold"
+              className="flex items-center gap-3 mt-6 text-accent font-semibold p-2 rounded-lg"
             >
               <IoCartOutline className="text-2xl" />
               Cart
@@ -115,7 +138,7 @@ export default function Header() {
         {/* Overlay */}
         {menuOpen && (
           <div
-            className="absolute top-0 left-0 w-full h-full bg-black/40 z-[85]"
+            className="fixed inset-0 bg-black/40 z-40 pointer-events-auto"
             onClick={() => setMenuOpen(false)}
           />
         )}
