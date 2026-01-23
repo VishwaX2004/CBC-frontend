@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Mediaupload from "../../Utils/mediaupload";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { logAdminActivity } from "../../Utils/AdminActivites";
 
 export default function UpdateProductPage() {
     const location = useLocation()
@@ -15,10 +16,10 @@ export default function UpdateProductPage() {
     const [labelledPrice, setLabelledPrice] = useState(location.state.labelledPrice);
     const [category, setCategory] = useState(location.state.category);
     const [stock, setStock] = useState(location.state.stock);
-    
+
     // 1. Add loading state to handle upload time
     const [isLoading, setIsLoading] = useState(false);
-    
+
     const navigate = useNavigate();
 
     async function updateprodduct() {
@@ -29,7 +30,7 @@ export default function UpdateProductPage() {
         }
 
         // 2. Basic Validation: prevent submitting empty required fields
-        if(!name || !price || !category || !stock) {
+        if (!name || !price || !category || !stock) {
             toast.error("Please fill in all required fields");
             return;
         }
@@ -42,11 +43,11 @@ export default function UpdateProductPage() {
             for (let i = 0; i < images.length; i++) {
                 promises[i] = Mediaupload(images[i]);
             }
-            
+
             // Wait for all images to upload
             let urls = await Promise.all(promises);
 
-            if(urls.length == 0){
+            if (urls.length == 0) {
                 urls = location.state.image
             }
 
@@ -67,7 +68,7 @@ export default function UpdateProductPage() {
             };
 
             await axios.put(
-                import.meta.env.VITE_API_URL + "/api/products/"+productID,
+                import.meta.env.VITE_API_URL + "/api/products/" + productID,
                 product,
                 {
                     headers: {
@@ -77,12 +78,19 @@ export default function UpdateProductPage() {
             );
 
             toast.success("Product Updated Successful");
+
+            logAdminActivity(
+                "Product updated",
+                `${name} (${productID})`
+            );
+
+
             navigate("/admin/products");
 
         } catch (error) {
             // 4. Detailed Error Logging
             console.error("Full Error Object:", error);
-            
+
             // Check if it's a backend validation error
             if (error.response && error.response.data) {
                 console.log("Server Error Response:", error.response.data);

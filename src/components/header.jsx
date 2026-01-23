@@ -80,8 +80,10 @@ export default function Header() {
           </div>
 
           {/* Mobile User Pill */}
-          <div className="w-full px-6 py-6 border-b flex flex-col items-center">
-            <UserData mobile />
+          <div className="w-full px-6 py-6 border-b flex justify-center relative z-50">
+            <div className="w-full max-w-[220px]">
+              <UserData mobile />
+            </div>
           </div>
 
           {/* Mobile Navigation */}

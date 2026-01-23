@@ -13,6 +13,9 @@ import UpdateProductPage from "./Admin/adminUpdateProduct";
 import AdminOrdersPage from "./Admin/AdminOrders";
 import { Loader } from "../components/loader";
 import AdminUserspage from "./Admin/usersPage";
+import AdminDashboard from "./Admin/AdminDashboard";
+import HomePage from "./HomePage";
+import { FaHome } from "react-icons/fa";
 
 export default function AdminPage() {
   const navigate = useNavigate();
@@ -52,7 +55,8 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="w-full h-full bg-primary flex p-4 gap-4">
+
+    <div className="w-full h-full bg-primary flex p-4 gap-4">                              
       {/* Sidebar */}
       <aside className="w-[280px] bg-primary rounded-2xl shadow-lg border border-black/10 flex flex-col">
         <div className="flex items-center h-[70px] bg-accent rounded-2xl">
@@ -75,6 +79,11 @@ export default function AdminPage() {
             label="Products"
           />
           <SidebarLink to="/admin/users" icon={<FiUsers />} label="Users" />
+           <SidebarLink
+            to="/"
+            icon={<FaHome />}
+            label="Home Page"
+          />
         </nav>
 
         <div className="px-4 py-4 border-t text-xs text-gray-500 text-center">
@@ -87,8 +96,12 @@ export default function AdminPage() {
         <div className="w-full h-full overflow-y-auto p-6">
           <Routes>
             <Route
+              path="/home"
+              element={<HomePage/>}
+            />
+            <Route
               path="/"
-              element={<h1 className="text-2xl font-semibold">Admin Dashboard</h1>}
+              element={<AdminDashboard/>}
             />
             <Route path="/products" element={<Adminproductpage />} />
             <Route path="/orders" element={<AdminOrdersPage />} />

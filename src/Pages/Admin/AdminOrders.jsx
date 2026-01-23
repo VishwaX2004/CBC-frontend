@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "../../components/loader";
 import OrderDetailsModal from "../../components/orderInfoModel";
+import { logAdminActivity } from "../../Utils/AdminActivites";
 
 export default function AdmiOrderPage() {
 
@@ -33,6 +34,7 @@ export default function AdmiOrderPage() {
             )
                 .then((res) => {
                     setOrders(res.data);
+                     logAdminActivity("Viewed orders", `${res.data.length} orders loaded`);
                     setLoading(false);
                 })
                 .catch(() => {

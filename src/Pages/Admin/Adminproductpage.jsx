@@ -2,9 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
-import { FiPlusCircle } from "react-icons/fi"; 
+import { FiPlusCircle } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { Loader } from "../../components/loader";
+import { logAdminActivity } from "../../Utils/AdminActivites";
 
 
 export function ProductDeleteConfirm(props) {
@@ -15,22 +16,29 @@ export function ProductDeleteConfirm(props) {
 
     const refresh = props.refresh
 
-    function Deleteproduct(){
+    function Deleteproduct() {
 
         const token = localStorage.getItem("token")
 
-            axios.delete(import.meta.env.VITE_API_URL + "/api/products/" + productID,{
-                headers:{
-                    Authorization : "Bearer " + token
-                }
-            })
-            .then((res)=>{
-                    console.log(res.data)
-                    close();
-                    toast.success("Product Deleted Successfully")
-                    refresh()
+        axios.delete(import.meta.env.VITE_API_URL + "/api/products/" + productID, {
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        })
+            .then((res) => {
+                console.log(res.data)
+                close();
+                toast.success("Product Deleted Successfully")
+
+                logAdminActivity(
+                    "Product deleted",
+                    `Product ID: ${productID}`
+                );
+
+
+                refresh()
             }).catch(
-                (err)=>{
+                (err) => {
                     toast.error("Failed to Delete Product")
                 }
             )
@@ -63,9 +71,9 @@ export default function Adminproductpage() {
 
     const [isDeteleConfirmVisibale, setIsDeleteConfirmvisibale] = useState(false)
 
-    const [producToDelete,setProductToDelete] = useState(null)
+    const [producToDelete, setProductToDelete] = useState(null)
 
-    const [isLoading,setLoading] = useState(true)
+    const [isLoading, setLoading] = useState(true)
 
     const navigate = useNavigate()
 
@@ -73,13 +81,13 @@ export default function Adminproductpage() {
 
     useEffect(() => {
 
-        if(isLoading){
-             axios
-            .get(import.meta.env.VITE_API_URL + "/api/products")
-            .then((res) => {
-                setProducts(res.data);
-                setLoading(false);
-            });
+        if (isLoading) {
+            axios
+                .get(import.meta.env.VITE_API_URL + "/api/products")
+                .then((res) => {
+                    setProducts(res.data);
+                    setLoading(false);
+                });
         }
 
     }, [isLoading]);
@@ -89,16 +97,16 @@ export default function Adminproductpage() {
         <div className="w-full min-h-screen bg-primary p-6 text-text">
 
             {
-                isDeteleConfirmVisibale && <ProductDeleteConfirm refresh={()=>{setLoading(true)}} productID={producToDelete} close ={()=>{setIsDeleteConfirmvisibale(false)}}  />
+                isDeteleConfirmVisibale && <ProductDeleteConfirm refresh={() => { setLoading(true) }} productID={producToDelete} close={() => { setIsDeleteConfirmvisibale(false) }} />
             }
 
-            
-                <div className="flex items-center gap-4 border-b border-secondary/10 px-6 py-4 ">
+
+            <div className="flex items-center gap-4 border-b border-secondary/10 px-6 py-4 ">
 
                 <h1 className="text-lg flex left-1 font-semibold text-text">Products</h1>
 
                 <span className="flex right-0 rounded-full bg-accent/10 px-3 py-1 text-xs font-medium text-accent">{products.length} Products</span>
-                </div>
+            </div>
 
 
             <Link to="/admin/add-product" className="fixed bottom-[50px] right-[50px] text-5xl text-accent hover:scale-110 transition">
@@ -106,7 +114,7 @@ export default function Adminproductpage() {
             </Link>
 
             <div className="overflow-x-auto rounded-xl shadow-md bg-white">
-               {isLoading? <Loader/> : <table className="w-full border-collapse">
+                {isLoading ? <Loader /> : <table className="w-full border-collapse">
                     <thead className="bg-secondary/30 text-text">
                         <tr className="text-sm uppercase tracking-wide">
                             <th className="p-4">Image</th>

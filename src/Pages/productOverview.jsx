@@ -2,9 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useParams } from "react-router-dom";
-import { Loader } from "../../components/loader";
-import ImageSlider from "../../components/imageSlider";
-import { AddtoCart } from "../../Utils/cart";
+import { Loader } from "../components/loader";
+import ImageSlider from "../components/imageSlider";
+import { AddtoCart } from "../Utils/cart";
 
 export default function ProductOverView() {
   const { id } = useParams(); // id = productID
@@ -25,8 +25,8 @@ export default function ProductOverView() {
   if (status === "error") return <div className="text-red-500 text-center mt-10">Failed to load Product</div>;
 
   return (
-    <div className="w-full min-h-[calc(100vh-100px)] bg-primary text-text px-3 sm:px-5 md:px-10 py-6 sm:py-8">
-      <div className="max-w-[1300px] mx-auto bg-white rounded-3xl shadow-xl p-4 sm:p-6 md:p-10 flex flex-col lg:flex-row gap-8 lg:gap-12">
+    <div className="w-full min-h-[calc(100vh-100px)] bg-primary text-text px-3 sm:px-5 md:px-10 py-6 sm:py-8 mt-15">
+      <div className="max-w-[1300px] mx-auto bg-white rounded-3xl shadow-xl p-4 sm:p-6 md:p-10 flex flex-col lg:flex-row gap-8 lg:gap-12 mt-5 lg:mt-10">
         {/* Image */}
         <div className="lg:w-1/2 w-full flex justify-center">
           <div className="w-full max-w-[520px] rounded-2xl overflow-hidden shadow-lg">

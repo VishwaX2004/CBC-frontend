@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Mediaupload from "../../Utils/mediaupload";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { logAdminActivity } from "../../Utils/AdminActivites";
 
 export default function Adminaddnewproduct() {
     const [productID, setProductID] = useState("");
@@ -64,6 +65,13 @@ export default function Adminaddnewproduct() {
             );
 
             toast.success("Product Add Successful");
+
+            // after successful POST
+            logAdminActivity(
+                "Product added",
+                `${name} (${productID})`
+            );
+
             navigate("/admin/products");
         } catch (error) {
             console.error("Full Error Object:", error);
@@ -142,7 +150,7 @@ export default function Adminaddnewproduct() {
                     {/* Images */}
                     <div>
                         <label className="block text-sm font-medium text-text mb-1">
-                          Product Images
+                            Product Images
                         </label>
                         <input
                             type="file"
@@ -200,11 +208,10 @@ export default function Adminaddnewproduct() {
                         <button
                             onClick={addprodduct}
                             disabled={isLoading}
-                            className={`px-10 py-3 rounded-xl font-semibold transition ${
-                                isLoading
+                            className={`px-10 py-3 rounded-xl font-semibold transition ${isLoading
                                     ? "bg-secondary text-text cursor-not-allowed"
                                     : "bg-accent text-white hover:opacity-90"
-                            }`}
+                                }`}
                         >
                             {isLoading ? "Uploading..." : "Submit"}
                         </button>
