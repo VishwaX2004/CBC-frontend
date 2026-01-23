@@ -17,7 +17,6 @@ export default function Header() {
       {/* ================= HEADER ================= */}
       <header className="w-full bg-accent text-white px-4 md:px-10 h-[72px] md:h-[90px] shadow-md top-0 left-0 z-50 fixed">
         <div className="w-full h-full flex items-center relative">
-
           {/* Mobile Menu Button */}
           <button
             className="md:hidden text-3xl absolute left-4 z-50 hover:scale-110 transition"
@@ -81,8 +80,11 @@ export default function Header() {
 
           {/* Mobile User Pill */}
           <div className="w-full px-6 py-6 border-b flex justify-center relative z-50">
-            <div className="w-full max-w-[220px]">
-              <UserData mobile />
+            <div className="w-full max-w-[220px] relative">
+              <UserData
+                mobile
+                dropdownClassName="absolute right-0 top-full mt-2 w-56 md:static md:mt-0"
+              />
             </div>
           </div>
 
