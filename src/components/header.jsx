@@ -3,33 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import UserData from "./userData";
 
-// ================= MOBILE USER PILL =================
-function MobileUserPill() {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  return (
-    <div className="w-full px-6 py-6 border-b flex justify-center relative z-50">
-      <div className="w-full max-w-[220px] relative">
-        {/* Tap to toggle dropdown */}
-        <div
-          className="cursor-pointer"
-          onClick={() => setDropdownOpen(!dropdownOpen)}
-        >
-          <UserData mobile />
-        </div>
-
-        {/* Dropdown menu */}
-        {dropdownOpen && (
-          <div className="absolute right-0 top-full mt-2 w-56 bg-white shadow-md rounded-md p-4 z-50">
-            <UserData mobile dropdownClassName="" />
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
-// ================= HEADER COMPONENT =================
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
@@ -88,7 +61,7 @@ export default function Header() {
       </header>
 
       {/* ================= MOBILE SIDEBAR ================= */}
-      <div className="fixed inset-0 md:hidden z-[90]">
+      <div className={`fixed inset-0 md:hidden z-[90]`}>
         {/* Sidebar */}
         <div
           className={`fixed top-0 left-0 h-full w-2/3 bg-white shadow-xl transform transition-transform duration-300 z-[100] pointer-events-auto
@@ -106,10 +79,17 @@ export default function Header() {
           </div>
 
           {/* Mobile User Pill */}
-          <MobileUserPill />
+          <div className="w-full px-6 py-6 border-b flex justify-center relative z-[50]">
+            <div className="w-full max-w-[220px] relative">
+              <UserData
+                mobile
+                dropdownClassName="absolute right-0 top-full mt-2 w-56 md:static md:mt-0 z-[60]"
+              />
+            </div>
+          </div>
 
           {/* Mobile Navigation */}
-          <nav className="flex flex-col gap-6 w-full px-6 py-6 text-lg font-medium items-center">
+          <nav className="flex flex-col gap-6 w-full px-6 py-6 text-lg font-medium items-center pointer-events-auto">
             {["/", "/products", "/about", "/contact"].map((path, i) => {
               const name = ["Home", "Products", "About", "Contact"][i];
               return (
