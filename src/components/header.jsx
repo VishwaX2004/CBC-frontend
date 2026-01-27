@@ -1,3 +1,4 @@
+// ================= Header.jsx =================
 import { IoCartOutline, IoMenu, IoClose } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -19,7 +20,7 @@ export default function Header() {
         <div className="w-full h-full flex items-center relative">
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-3xl absolute left-4 z-[110] hover:scale-110 transition"
+            className="md:hidden text-3xl absolute left-4 z-[120] hover:scale-110 transition"
             onClick={() => setMenuOpen(true)}
           >
             <IoMenu />
@@ -53,7 +54,7 @@ export default function Header() {
           {/* Cart */}
           <Link
             to="/cart"
-            className="absolute right-4 flex items-center justify-center text-3xl md:text-4xl hover:scale-110 transition z-[110]"
+            className="absolute right-4 flex items-center justify-center text-3xl md:text-4xl hover:scale-110 transition z-[120]"
           >
             <IoCartOutline />
           </Link>
@@ -61,10 +62,10 @@ export default function Header() {
       </header>
 
       {/* ================= MOBILE SIDEBAR ================= */}
-      <div className={`fixed inset-0 md:hidden z-[90]`}>
+      <div className={`fixed inset-0 md:hidden z-[110] pointer-events-none`}>
         {/* Sidebar */}
         <div
-          className={`fixed top-0 left-0 h-full w-2/3 bg-white shadow-xl transform transition-transform duration-300 z-[100] pointer-events-auto
+          className={`fixed top-0 left-0 h-full w-2/3 bg-white shadow-xl transform transition-transform duration-300 z-[130] pointer-events-auto
             ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
         >
           {/* Sidebar Header */}
@@ -79,17 +80,17 @@ export default function Header() {
           </div>
 
           {/* Mobile User Pill */}
-          <div className="w-full px-6 py-6 border-b flex justify-center relative z-[50]">
+          <div className="w-full px-6 py-6 border-b flex justify-center relative z-[140]">
             <div className="w-full max-w-[220px] relative">
               <UserData
                 mobile
-                dropdownClassName="absolute right-0 top-full mt-2 w-56 md:static md:mt-0 z-[60]"
+                dropdownClassName="absolute right-0 top-full mt-2 w-56 md:static md:mt-0 z-[150]"
               />
             </div>
           </div>
 
           {/* Mobile Navigation */}
-          <nav className="flex flex-col gap-6 w-full px-6 py-6 text-lg font-medium items-center pointer-events-auto">
+          <nav className="flex flex-col gap-6 w-full px-6 py-6 text-lg font-medium items-center pointer-events-auto z-[140]">
             {["/", "/products", "/about", "/contact"].map((path, i) => {
               const name = ["Home", "Products", "About", "Contact"][i];
               return (
@@ -118,7 +119,7 @@ export default function Header() {
         {/* Overlay */}
         {menuOpen && (
           <div
-            className="fixed inset-0 bg-black/40 z-[80] pointer-events-auto"
+            className="fixed inset-0 bg-black/40 z-[120] pointer-events-auto"
             onClick={() => setMenuOpen(false)}
           />
         )}

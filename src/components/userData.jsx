@@ -1,9 +1,10 @@
+// ================= UserData.jsx =================
 import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
 import { IoChevronDown } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
-export default function UserData({ mobile = false }) {
+export default function UserData({ mobile = false, dropdownClassName = "" }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = useState(false);
@@ -44,13 +45,11 @@ export default function UserData({ mobile = false }) {
 
   return (
     <div
-      className={`flex items-center ${
-        mobile ? "flex-col w-full" : "mr-[80px] md:mr-12 lg:mr-24"
-      }`}
+      className={`flex items-center ${mobile ? "flex-col w-full" : "mr-[80px] md:mr-12 lg:mr-24"}`}
     >
       {/* 🔴 Logout Confirmation Modal */}
       {isLogoutConfirmOpen && (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[160] bg-black/50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-sm">
             <p className="text-gray-700 text-center font-medium mb-6">
               Are you really sure you want to logout?
@@ -88,13 +87,8 @@ export default function UserData({ mobile = false }) {
             mobile ? "w-full mt-4" : ""
           }`}
         >
-          {/* ✅ Cache-busted profile image */}
           <img
-            src={
-              user.image
-                ? `${user.image}?t=${Date.now()}`
-                : "/default-avatar.png"
-            }
+            src={user.image ? `${user.image}?t=${Date.now()}` : "/default-avatar.png"}
             alt="User Avatar"
             className="w-11 h-11 rounded-full border object-cover border-gray-300"
           />
@@ -106,7 +100,9 @@ export default function UserData({ mobile = false }) {
           <IoChevronDown className="text-gray-500 text-sm transition group-hover:rotate-180" />
 
           {/* ⬇ Dropdown */}
-          <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+          <div
+            className={`absolute right-0 top-full mt-2 w-48 bg-white rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[150] ${dropdownClassName}`}
+          >
             <Link
               to="/settings"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
