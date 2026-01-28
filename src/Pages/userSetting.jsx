@@ -90,7 +90,7 @@ export default function UserSettingPage() {
     }
 
     return (
-        <div className="w-full min-h-screen bg-[url('/up.jpg')] bg-cover bg-center flex items-center justify-center px-4 py-10">
+        <div className="w-full min-h-screen bg-[url('/up.jpg')] bg-cover bg-center flex items-center justify-center px-4 py-10 mt-22">
             <div className="w-full max-w-6xl bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-6 md:p-10">
 
                 {/* Header */}

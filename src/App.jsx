@@ -10,6 +10,7 @@ import RegisterPage from './Pages/register.jsx'
 import ForgetPassword from './components/forgetPassword.jsx'
 
 
+
 function App() {
   return (
     <BrowserRouter>

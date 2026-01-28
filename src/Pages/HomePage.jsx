@@ -10,6 +10,7 @@ import UserSettingPage from "./userSetting";
 import { AboutUsPage } from "./aboutus";
 import { ContactUS } from "./contactus";
 import { PageNotFound } from "./pagenotfound";
+import UserOrders from "./Orders";
 
 export default function HomePage() {
   return (
@@ -26,6 +27,8 @@ export default function HomePage() {
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/settings" element={<UserSettingPage />} />
+        <Route path="/orders" element={<UserOrders />} />
+
       </Routes>
 
       <Footer />

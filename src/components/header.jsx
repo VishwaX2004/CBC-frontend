@@ -34,9 +34,9 @@ export default function Header() {
           />
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex w-full h-full items-center justify-center gap-12 text-lg font-semibold">
-            {["/", "/products", "/about", "/contact"].map((path, i) => {
-              const name = ["Home", "Products", "About", "Contact"][i];
+          <nav className="hidden md:flex w-full h-full items-center justify-center gap-12 text-lg font-semibold ml-20">
+            {["/", "/products", "/about", "/contact" ,"/orders"].map((path, i) => {
+              const name = ["Home", "Products", "About", "Contact","Orders"][i];
               return (
                 <Link key={i} className="relative group" to={path}>
                   {name}
