@@ -91,8 +91,8 @@ export default function Header() {
 
           {/* Mobile Navigation */}
           <nav className="flex flex-col gap-6 w-full px-6 py-6 text-lg font-medium items-center pointer-events-auto z-[140]">
-            {["/", "/products", "/about", "/contact"].map((path, i) => {
-              const name = ["Home", "Products", "About", "Contact"][i];
+            {["/", "/products", "/about", "/contact","/orders"].map((path, i) => {
+              const name = ["Home", "Products", "About", "Contact","Orders"][i];
               return (
                 <Link
                   key={i}

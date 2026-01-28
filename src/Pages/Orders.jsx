@@ -39,7 +39,7 @@ export default function UserOrders() {
     }, [isLoading, navigate]);
 
     return (
-        <div className="w-full min-h-screen bg-primary p-4 sm:p-6 text-text mt-20">
+        <div className="w-full min-h-[calc(100vh-100px)] bg-primary p-4 sm:p-4 text-text lg:mt-20">
             <UserOrderDetailsModal
                 isModalOpen={isModalOpen}
                 closeModal={() => setModelOpen(false)}
@@ -48,8 +48,8 @@ export default function UserOrders() {
             />
 
             {/* Header */}
-            <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-5">
-                <h1 className="text-2xl font-bold text-text">My Orders</h1>
+            <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 lg:mt-5">
+                <h1 className="text-2xl font-bold text-text mb-2">My Orders</h1>
                 <span className="inline-flex items-center rounded-full bg-accent/10 px-4 py-1 text-sm font-semibold text-accent">
                     {orders.length} Orders
                 </span>
