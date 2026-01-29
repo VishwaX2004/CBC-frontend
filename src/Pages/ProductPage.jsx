@@ -12,21 +12,33 @@ export function ProductPage() {
 
   // Fetch all products
   useEffect(() => {
-    if (isLoading) {
-      axios
-        .get(`${import.meta.env.VITE_API_URL}/api/products/`)
-        .then(res => { setProducts(res.data); setLoading(false); })
-        .catch(() => { toast.error("Failed to Load Products"); setLoading(false); });
-    }
+    if (!isLoading) return;
+
+    axios
+      .get(`${import.meta.env.VITE_API_URL}/api/products`)
+      .then(res => {
+        setProducts(res.data);
+        setLoading(false);
+      })
+      .catch(() => {
+        toast.error("Failed to load products");
+        setLoading(false);
+      });
   }, [isLoading]);
 
-  // Search products with debounce
+  // Search products (debounced)
   useEffect(() => {
     const timer = setTimeout(async () => {
-      if (searchQuery === "") return setLoading(true); // reload all products
+      const query = searchQuery.trim();
+
+      if (query === "") {
+        setLoading(true); // reload all products
+        return;
+      }
+
       try {
         const res = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/products/${encodeURIComponent(searchQuery)}`
+          `${import.meta.env.VITE_API_URL}/api/products/search?query=${encodeURIComponent(query)}`
         );
         setProducts(res.data);
       } catch {
@@ -41,7 +53,7 @@ export function ProductPage() {
     <div className="w-full min-h-[calc(100vh-100px)] bg-gray-50 px-4 sm:px-6 md:px-8 pt-[100px] pb-5 lg:mt-5">
       {/* Search */}
       <div className="w-full flex justify-center mb-6">
-        <div className="relative w-full max-w-md flex justify-center">
+        <div className="relative w-full max-w-md">
           <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 z-10" />
           <input
             type="text"
@@ -54,9 +66,13 @@ export function ProductPage() {
       </div>
 
       {isLoading ? (
-        <div className="flex justify-center mt-10"><Loader /></div>
+        <div className="flex justify-center mt-10">
+          <Loader />
+        </div>
       ) : products.length === 0 ? (
-        <div className="text-center text-gray-500 mt-10">No products found.</div>
+        <div className="text-center text-gray-500 mt-10">
+          No products found.
+        </div>
       ) : (
         <div className="w-full flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8">
           {products.map(product => (
