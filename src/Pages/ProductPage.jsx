@@ -26,7 +26,7 @@ export function ProductPage() {
       if (searchQuery === "") return setLoading(true); // reload all products
       try {
         const res = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/products/search?query=${encodeURIComponent(searchQuery)}`
+          `${import.meta.env.VITE_API_URL}/api/products/${encodeURIComponent(searchQuery)}`
         );
         setProducts(res.data);
       } catch {
